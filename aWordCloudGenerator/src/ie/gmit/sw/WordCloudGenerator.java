@@ -44,11 +44,11 @@ public class WordCloudGenerator {
 		System.out.println("Command-Line Menu");
 		System.out.print("Enter FILENAME (http://www.oracle.com/), (sample-text-file//DeBelloGallico.txt):");
 		fileIn = sc.nextLine();
-		/*
 		//following is concerned with the word cloud output
 		System.out.print("Enter MAXWORDS:");
 		maxWords = sc.nextInt();	
 		sc.nextLine();
+		/*
 		System.out.print("Enter SAVEAS: ");
 		fileOut = sc.nextLine();
 		*/
@@ -65,13 +65,31 @@ public class WordCloudGenerator {
 				System.out.println("Could not determine file/url.");
 				break;
 		}
-		//tests
+		/*/tests
 		frequencyTable.forEach((k, v) -> {
 			//if(v > 20)
 			System.out.format("Word: %s\tCount: %d%n", k, v);
 		});
 		//*/			
 		System.out.println("Word count: " + frequencyTable.size());
+		
+		/*
+		 * Test mapCompatator
+		 */
+		TempFunctions tf = new TempFunctions();
+		Map<String, Integer> ftReduced = tf.sortMap(frequencyTable, maxWords);
+		
+		//tf.sortMap(frequencyTable, maxWords);
+		//tests
+		frequencyTable.clear();
+		System.out.println("Table size: " + frequencyTable.size());
+		System.out.println("Table size: " + ftReduced.size());
+		ftReduced.forEach((k, v) -> {
+			//if(v > 20)
+			System.out.format("Word: %s\tCount: %d%n", k, v);
+		});
+		
+		//*/
 		
 		//System.out.printf("%nFILENAME: %s%nMAXWORDS: %d%nSAVEAS: %s%n", fileIn, maxWords, fileOut);
 
