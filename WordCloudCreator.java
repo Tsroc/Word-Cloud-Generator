@@ -4,6 +4,20 @@ import javax.imageio.*;
 import java.io.*;
 
 /*
+plindenbaum.blogspot.com/2010/10/playing-with-wordle-algroithm-gat.html
+    sort words by weight, decreasing
+    for each word w:
+        w.postion:= makeInitialPosition(w);
+        while w intersects other words:
+            updatePosition(w);
+
+code invokes a java.awt.font.TextLayout class to get the shape of the text:
+    and a java.awt.geom.Area to test is two shapes intersects.
+
+http://github.com/lidenb/jsandbox/blob/master/src/sandbox/MyWordle.java
+static.mrfeinberg.com/bv_ch03.pdf
+*/
+/*
 I'm the creator of Wordle. Here's how Wordle actually works:
 
 Count the words, throw away boring words, and sort by the count, descending.
@@ -27,7 +41,7 @@ that covers this same territory: Beautiful Visualization, Chapter 3: Wordle
 
 */
 public class WordCloudCreator {   
-    static int[] wordSizes = {12, 22, 32, 42, 52, 62};
+    static int[] wordSizes = {12, 12, 27, 42, 67, 100};
     final static int sizeX = 600;
     final static int sizeY = 300;
     static int x = (sizeX - wordSizes[wordSizes.length-1]) / 2;   //indicates start location
@@ -76,28 +90,28 @@ public class WordCloudCreator {
 
         switch (wordValue){
             case 5:
-                font = new Font(Font.SANS_SERIF, Font.BOLD, wordSizes[wordValue]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
                 graphics.setColor(Color.red);
                 break;
             case 4:
-                font = new Font(Font.SANS_SERIF, Font.BOLD, wordSizes[wordValue]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
                 graphics.setColor(Color.orange);
                 break;
             case 3:
-                font = new Font(Font.SANS_SERIF, Font.ITALIC, wordSizes[wordValue]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
                 graphics.setColor(Color.blue);
                 break;
             case 2:
-                font = new Font(Font.SANS_SERIF, Font.ITALIC, wordSizes[wordValue]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
                 graphics.setColor(Color.yellow);
                 break;
             case 1:
-                font = new Font(Font.SANS_SERIF, Font.ITALIC, wordSizes[wordValue]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
                 graphics.setColor(Color.cyan);
                 break;
             default:
                 //do not reach 
-                font = new Font(Font.MONOSPACED, Font.PLAIN, wordSizes[0]);
+                font = new Font("TimesRoman", Font.BOLD, wordSizes[0]);
                 graphics.setColor(Color.green);
                 break;
         }
