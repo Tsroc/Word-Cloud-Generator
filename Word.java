@@ -6,7 +6,12 @@ public class Word{
     float weight;
     static float highWordCount = 0;  //set by constructor
     static int factor = 5;
-    Font font; 
+    Font font;
+    int fontWidth;
+    int fontHeight;
+    //must store image here and assign variables to calculate img demsions
+    
+    //Point point;
     static int[] wordSizes = {12, 12, 27, 42, 67, 100};     //can be moved to enum
     //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
 
@@ -21,7 +26,13 @@ public class Word{
         createFont();
     }
 
-    public int getImgLength(){
+    public void setFontMetrics(FontMetrics fm)
+    {
+        this.fontWidth = fm.stringWidth(this.word);
+        this.fontHeight = fm.getMaxDescent();
+    }
+
+    public int getImgWidth(){
         //how to calc length of img pixals?
         //make word sizes a % of the imgSize?
         //Font myfont = jTextField1.getFont();      
@@ -33,10 +44,12 @@ public class Word{
         For example, if you have a Graphics variable called g, you'd use:
         int width = g.getFontMetrics().stringWidth(text);
         */
-        return wordSizes[(int)this.weight];// * this.word.length();
+        System.out.println(this.fontWidth);
+        return this.fontWidth * this.word.length();
+
     }
     public int getImgHeight(){
-        return wordSizes[(int)this.weight];
+        return this.fontHeight;
     }
 
     public String getWord(){

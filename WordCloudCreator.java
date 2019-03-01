@@ -41,6 +41,7 @@ that covers this same territory: Beautiful Visualization, Chapter 3: Wordle
 
 */
 public class WordCloudCreator {   
+    Color[] colors = {Color.blue, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
     //static int[] wordSizes = {12, 12, 27, 42, 67, 100};
     //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
     final static int sizeX = 600;
@@ -49,7 +50,6 @@ public class WordCloudCreator {
     static int y;
     static BufferedImage image= new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_4BYTE_ABGR);
     private static java.util.Random rnd = new java.util.Random();
-    Color[] colors = {Color.blue, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
     //must create a function to modify x and y
     //must also check for collision
     //must know the height of words
@@ -69,15 +69,17 @@ public class WordCloudCreator {
         //or passed when a word is created
         graphics.setColor(colors[(int)word.weight]);
         setLocation(word);
-		graphics.setFont(word.getFont());
-        graphics.drawString(word.word, x, y);                  //to be changed
+        graphics.setFont(word.getFont());
+        FontMetrics fontMetrics = graphics.getFontMetrics();
+        word.setFontMetrics(fontMetrics);
+        //System.out.println("DEBUG: " + graphics.getFontMetrics().stringWidth(word.word));
+        graphics.drawString(word.word, x, y);//to be changed
     }
 
     private static void setLocation(Word w){
         //should be called after createFont (within this function) - and use the previous words height/width to determine next location
         //following is simplistic, not correct
-    
-        x = rnd.nextInt(sizeX - w.getImgLength());
+        x = rnd.nextInt(sizeX - w.getImgWidth());
         y = rnd.nextInt(sizeY - w.getImgHeight());
         y += w.getImgHeight();
 
