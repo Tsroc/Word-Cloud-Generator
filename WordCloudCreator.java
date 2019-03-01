@@ -41,83 +41,48 @@ that covers this same territory: Beautiful Visualization, Chapter 3: Wordle
 
 */
 public class WordCloudCreator {   
-    static int[] wordSizes = {12, 12, 27, 42, 67, 100};
+    //static int[] wordSizes = {12, 12, 27, 42, 67, 100};
+    //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
     final static int sizeX = 600;
     final static int sizeY = 300;
-    static int x = (sizeX - wordSizes[wordSizes.length-1]) / 2;   //indicates start location
-    static int y = sizeY / 2;
+    static int x;   //indicates start location
+    static int y;
     static BufferedImage image= new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_4BYTE_ABGR);
     private static java.util.Random rnd = new java.util.Random();
+    Color[] colors = {Color.blue, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
     //must create a function to modify x and y
     //must also check for collision
     //must know the height of words
 
     Font font;
     static Graphics graphics = image.getGraphics();
+    //graphics.setColor(Color.blue);
     
        
     //constructor
-    WordCloudCreator(String word, int wordValue)
+    WordCloudCreator(Word word)
     {
         //below inputs are for test purposes, all of the text is currently on top of each other
         //unsure how to ensure the text is correctly positioned
         //how to handle the change of size and color?
         //if I know number of numbers to be displayed then it could be % based, would require a size to be set which can be done statically
         //or passed when a word is created
-        font = createFont(word, wordValue); 
-		graphics.setFont(font);
-        graphics.drawString(word, x, y);                  //to be changed
-        //System.out.println(word + " x: " + x + " y: " + y);
-        //create new function: drawFont: Calls drawString() and implements algorithm to position(ensure no overlapping)
-        //y += 20;
+        graphics.setColor(colors[(int)word.weight]);
+        setLocation(word);
+		graphics.setFont(word.getFont());
+        graphics.drawString(word.word, x, y);                  //to be changed
     }
 
-    private static void getWordLocation(int wordSize)
-    {
+    private static void setLocation(Word w){
         //should be called after createFont (within this function) - and use the previous words height/width to determine next location
         //following is simplistic, not correct
     
-        x = rnd.nextInt(sizeX - (100 - wordSize));
-        y = rnd.nextInt(sizeY - 50);
-        y += 50;
+        x = rnd.nextInt(sizeX - w.getImgLength());
+        y = rnd.nextInt(sizeY - w.getImgHeight());
+        y += w.getImgHeight();
 
     }
     
-    private Font createFont(String word, int wordValue)
-    {
-        Font font = null;
-        //System.out.println(wordValue);
-
-        switch (wordValue){
-            case 5:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
-                graphics.setColor(Color.red);
-                break;
-            case 4:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
-                graphics.setColor(Color.orange);
-                break;
-            case 3:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
-                graphics.setColor(Color.blue);
-                break;
-            case 2:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
-                graphics.setColor(Color.yellow);
-                break;
-            case 1:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[wordValue]);
-                graphics.setColor(Color.cyan);
-                break;
-            default:
-                //do not reach 
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[0]);
-                graphics.setColor(Color.green);
-                break;
-        }
-        getWordLocation(wordSizes[wordValue]);
-        return font;
-    }
 
     public static void dispose()
     {

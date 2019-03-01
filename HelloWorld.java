@@ -4,38 +4,30 @@ import java.util.Map;
 public class HelloWorld{
     public static void main(String[] args){
         System.out.println("HelloWorld");
-        WCGmenu menu = new WCGmenu();
         WordCloudCreator wcg;
+        WCGmenu menu = new WCGmenu();
         menu.displayMenu();
-        menu.readFile();
+        new FileInfo().readFile(menu.fileIn, menu.getFullTable());
         //menu.frequencyTable = menu.getShortTable();
         menu.frequencyTable = menu.sortTable();
         menu.frequencyTable = menu.getShortTable();
-        //menu.displayTable();
 
-        //System.out.println(menu.getIgnoreList());
+        //can convert String map to <Word, Integer> map, to carry weight for img creation
+        //wordCount will no longer be required, but weight will be. Weight algorithm can be placed elsewhere.
+
         //used to determine which % the word should fall into
         //eg: index 0 is highest, will be assigned size/color to match
         int i = 0;
-        int factor = 5;
-        float maxWordCount = 0;
-        float fWordValue;
-        int iWordValue;
 
+        Word[] words = new Word[menu.maxWords];
+        
+        //requires test and ? fix
         for (Map.Entry<String, Integer> ft: menu.frequencyTable.entrySet()){
-            if (i == 0) maxWordCount = ft.getValue();
-            //wordValue = ((maxWordCount - ft.getValue()) - maxWordCount);// % 10 * 2;
-            fWordValue = (ft.getValue() / maxWordCount) * (factor / 1);
-            if (fWordValue < factor - 0.5) { //seems to be a decent place to split it, can be changed.  Looks reasonable for 20, 100, 1000
-                fWordValue = --factor;
-                maxWordCount = ft.getValue();
-            }
-            iWordValue = Math.round(fWordValue);
-            //System.out.println(i++ + ": " + iWordValue);
-            i++;
-
-            wcg = new WordCloudCreator(ft.getKey(), iWordValue);
+            words[i] = new Word(ft.getKey(), ft.getValue());
+            wcg = new WordCloudCreator(words[i]);
+            if (i >= menu.maxWords) break; else i++;
         }
+        
 
         WordCloudCreator.saveImg(menu.fileOut);
     }
