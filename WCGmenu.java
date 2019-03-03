@@ -23,7 +23,7 @@ public class WCGmenu{
         this.fileIn = "DeBelloGallico.txt";
         //this.fileIn = "WarAndPeace-LeoTolstoy.txt";
         System.out.println("Enter MAXWORDS");
-        this.maxWords = 20; 
+        this.maxWords = 100; 
         //this.maxWords = sc.nextInt();
         //sc.nextLine();
         System.out.println("Enter SAVEAS");

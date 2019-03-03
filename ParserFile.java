@@ -20,6 +20,7 @@ public class ParserFile implements Parser{
 
                 // System.out.println(line);
                 words = line.toLowerCase().split(delimiters);
+                //words = line.toUpperCase().split(delimiters);
 
                 // add to Map
                 for (int i = 0; i < words.length; i++) {

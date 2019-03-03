@@ -50,6 +50,8 @@ public class WordCloudCreator {
     static int y;
     static BufferedImage image= new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_4BYTE_ABGR);
     private static java.util.Random rnd = new java.util.Random();
+    static boolean first = true;
+    static Point point;
     //must create a function to modify x and y
     //must also check for collision
     //must know the height of words
@@ -68,21 +70,38 @@ public class WordCloudCreator {
         //if I know number of numbers to be displayed then it could be % based, would require a size to be set which can be done statically
         //or passed when a word is created
         graphics.setColor(colors[(int)word.weight]);
-        setLocation(word);
         graphics.setFont(word.getFont());
-        FontMetrics fontMetrics = graphics.getFontMetrics();
-        word.setFontMetrics(fontMetrics);
+        //fontMetrics fm = graphics.getFontMetrics();
+        //word.fontWidth = graphics.getFontMetrics().stringWidth(word.word);
+        //word.fontHeight = graphics.getFontMetrics().getMaxDescent();
+        word.setFontMetrics(graphics.getFontMetrics());
+
+        point = setLocation(word);
         //System.out.println("DEBUG: " + graphics.getFontMetrics().stringWidth(word.word));
-        graphics.drawString(word.word, x, y);//to be changed
+        //graphics.drawString(word.word, x, y);//to be changed
+        //point = new Point(x, y);
+        graphics.drawString(word.word, (int)point.getX(), (int)point.getY());//to be changed
+    
+
     }
 
-    private static void setLocation(Word w){
+    private Point setLocation(Word w){
         //should be called after createFont (within this function) - and use the previous words height/width to determine next location
         //following is simplistic, not correct
-        x = rnd.nextInt(sizeX - w.getImgWidth());
-        y = rnd.nextInt(sizeY - w.getImgHeight());
-        y += w.getImgHeight();
-
+        Point point;
+        if (first){ //set first word in middle
+            point = new ImgPlacement().getStartLocation(sizeX, sizeY, w);
+            //x = (int)point.getX();
+            //y = (int)point.getY();
+            first = false;
+            return point;
+        } else{
+            int x = rnd.nextInt(sizeX - w.getImgWidth());
+            int y = rnd.nextInt(sizeY - w.getImgHeight());
+            y += w.getImgHeight();
+            point = new Point(x, y);
+            return point;
+        }
     }
     
 

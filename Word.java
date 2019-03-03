@@ -4,7 +4,7 @@ import java.awt.*;
 public class Word{
     String word;
     float weight;
-    static float highWordCount = 0;  //set by constructor
+    static float highWordCount = 0;  //set by constructor - used to assign weight
     static int factor = 5;
     Font font;
     int fontWidth;
@@ -29,7 +29,7 @@ public class Word{
     public void setFontMetrics(FontMetrics fm)
     {
         this.fontWidth = fm.stringWidth(this.word);
-        this.fontHeight = fm.getMaxDescent();
+        this.fontHeight = fm.getMaxDescent() * 2;// + fm.getMaxAscent();
     }
 
     public int getImgWidth(){
@@ -44,11 +44,12 @@ public class Word{
         For example, if you have a Graphics variable called g, you'd use:
         int width = g.getFontMetrics().stringWidth(text);
         */
-        System.out.println(this.fontWidth);
-        return this.fontWidth * this.word.length();
+        //System.out.println("Width: " + this.fontWidth);
+        return this.fontWidth;// * this.word.length();
 
     }
     public int getImgHeight(){
+        //System.out.println("Height: " + this.fontHeight);
         return this.fontHeight;
     }
 
