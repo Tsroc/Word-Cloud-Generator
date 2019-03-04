@@ -13,7 +13,7 @@ public class Word{
     //must store image here and assign variables to calculate img demsions
     
     //Point point;
-    static int[] wordSizes = {12, 12, 27, 42, 67, 100};     //can be moved to enum
+    static int[] wordSizes = {12, 12, 27, 32, 47, 65};     //can be moved to enum
     //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
 
     //move functions from wordloudGenerator
@@ -30,7 +30,7 @@ public class Word{
     public void setFontMetrics(FontMetrics fm)
     {
         this.fontWidth = fm.stringWidth(this.word);
-        System.out.println("d: " + fm.getMaxDescent() + " a: " + fm.getMaxAscent() + " h: " + fm.getHeight() + " l: " + fm.getLeading());
+        //System.out.println("d: " + fm.getMaxDescent() + " a: " + fm.getMaxAscent() + " h: " + fm.getHeight() + " l: " + fm.getLeading());
         this.fontHeight = fm.getMaxDescent(); //fm.getHeight() - fm.getDescent(); //fm.getMaxAscent(); // + fm.getAscent();// + fm.getMaxAscent();
     }
 

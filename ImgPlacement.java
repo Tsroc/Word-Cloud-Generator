@@ -8,4 +8,16 @@ public class ImgPlacement{
 
         return new Point(x, y);
     }
+
+    //seems to be working correctly
+    public static boolean inBoundsCheck(Point size, Point startPoint, Word w){
+        if((startPoint.getX() < 0) || (startPoint.getX() + w.getImgWidth()) > size.getX()){
+            return false;
+        }
+        if((startPoint.getY() + w.getImgHeight() < 0) || (startPoint.getY()  > size.getY())){
+            return false;
+        }
+
+        return true;
+    }
 }

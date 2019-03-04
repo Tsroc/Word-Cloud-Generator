@@ -46,11 +46,13 @@ public class WordCloudCreator {
     //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
     final static int sizeX = 600;
     final static int sizeY = 300;
+    Point imgSize = new Point(sizeX, sizeY);
     static int x;   //indicates start location
     static int y;
     static BufferedImage image= new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_4BYTE_ABGR);
     private static java.util.Random rnd = new java.util.Random();
     static boolean first = true;
+    static boolean firstFill = false;
     //static Point point;
     //must create a function to modify x and y
     //must also check for collision
@@ -89,8 +91,10 @@ public class WordCloudCreator {
     
         //recreated constructor, takes array now.
         for (int i = 0; i < words.length; i++){
+            //System.out.println("I: " + i);
             graphics.setColor(colors[(int)words[i].weight]);
             graphics.setFont(words[i].getFont());
+            //graphics.setFont(new Font("TimesRoman", Font.BOLD, 20));
             
             words[i].setFontMetrics(graphics.getFontMetrics());
 
@@ -98,34 +102,42 @@ public class WordCloudCreator {
 
             //test collision
             boolean collision = false;
+            int firstFillCheck = 0;
 
             do{
-                words[i].startingPoint = setLocation(words[i]);
+                if (firstFillCheck == 50){ firstFill = true; firstFillCheck = 0;}
+                words[i].startingPoint = setLocation(words[i], words[0]);
                 collision = false;
 
                 for(int j = 0; j < words.length; j++){
+                    //System.out.println("I: " + i + ", J: " + j);
                     if (j >= i) break;
                     //System.out.println(words[i].collisionCheck(words[j]));  //should say true
 
                     if (words[i].collisionCheck(words[j])){
+                        firstFillCheck++;
                         collision = true;
-                        System.out.println("Reloop");
+                        //System.out.println("Reloop");
                         break;
                     }
                 }
             } while (collision);
-
-            System.out.println(words[i].word + " collision: " + collision);
+            firstFill = false;      //may make code very inefficien - but will make word cloud tighter
+                                    //at some point this must ot be set back to true, 
+            //System.out.println(words[i].word + ": bounds Test: " + ImgPlacement.inBoundsCheck(imgSize, words[i].startingPoint, words[i]));
+            //System.out.println(words[i].word + " collision: " + collision);
+            //Rotation not working, the following seems to rotate the text at random or in relation to the width of the text
+            //continue placememnt without rotation
             /*/rotation
             Graphics2D g2d = (Graphics2D) graphics;
-            g2d.rotate(180);           //.setToRotation(Math.toRadians(180));
+            g2d.rotate(180);       //.setToRotation(Math.toRadians(180));
             graphics = g2d;
-            */
+            //*/
             graphics.drawString(words[i].word, (int)words[i].startingPoint.getX(), (int)words[i].startingPoint.getY());//to be changed
         }
     }
 
-    private Point setLocation(Word w){
+    private Point setLocation(Word w, Word w2){
         //should be called after createFont (within this function) - and use the previous words height/width to determine next location
         //following is simplistic, not correct
         Point point;
@@ -133,18 +145,70 @@ public class WordCloudCreator {
             point = new ImgPlacement().getStartLocation(sizeX, sizeY, w);
             //x = (int)point.getX();
             //y = (int)point.getY();
+            //point = new Point(500, 150);
             first = false;
             return point;
         } else{
+            /*
             int x = rnd.nextInt(sizeX - w.getImgWidth());
             int y = rnd.nextInt(sizeY - w.getImgHeight());
             y += w.getImgHeight();
+            */
+            //int x = rnd.nextInt(sizeX - w.getImgWidth());
+            int x, tempX;
+            int y, tempY;
+            if (!firstFill){
+                if (w.getImgWidth() <= w2.getImgWidth())
+                    tempX = rnd.nextInt(w2.getImgWidth() - w.getImgWidth());
+                else tempX = (int)w2.startingPoint.getX();
 
-            //point = new Point(x, y);
+                tempY = rnd.nextInt(w2.getImgHeight()*2);
+                x = tempX + (int)w2.startingPoint.getX();
+                y = (tempY >= w2.getImgHeight())? (int)(w2.startingPoint.getY() + (tempY - w2.getImgHeight())): (int)(w2.startingPoint.getY() - w2.getImgHeight() - tempY/2);//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
+                
+           // } else if (!Seconfill){}
+           
+            } else {
+                x = rnd.nextInt(sizeX - w.getImgWidth());
+                y = rnd.nextInt(sizeY - w.getImgHeight());
+                y += w.getImgHeight();
+            }
+
             point = new Point(x, y);
             return point;
         }
     }
+            /*
+            for (int r = 0; r < sizeX; r += 2) {
+                for (int x = -r; x <= r; x++) {
+                    if (start.x + x < 0) { continue; }
+                    if (start.x + x >= sizeX) { continue; }
+
+                    boolean placed = false;
+                    word.getPosition().x = start.x + x;
+
+                    // try positive root
+                    final int y1 = (int) Math.sqrt(r * r - x * x);
+                    if (start.y + y1 >= 0 && start.y + y1 < dimension.height) {
+                        word.getPosition().y = start.y + y1;
+                        placed = canPlace(word);
+                    }
+                    // try negative root
+                    final int y2 = -y1;
+                    if (!placed && start.y + y2 >= 0 && start.y + y2 < dimension.height) {
+                        word.getPosition().y = start.y + y2;
+                        placed = canPlace(word);
+                    }
+                    if (placed) {
+                        collisionRaster.mask(word.getCollisionRaster(), word.getPosition());
+                        graphics.drawImage(word.getBufferedImage(), word.getPosition().x, word.getPosition().y, null);
+                        return true;
+                    }
+
+                }
+            }
+        }
+    }*/
     
 
     public static void dispose()
