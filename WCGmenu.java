@@ -20,10 +20,10 @@ public class WCGmenu{
         System.out.println("Command-Line-Menu");
         System.out.println("Enter FILENAME (http://www.google.com/) (DeBelloGallico.txt)");
         //this.fileIn = sc.nextLine();
-        this.fileIn = "DeBelloGallico.txt";
-        //this.fileIn = "WarAndPeace-LeoTolstoy.txt";
+        //this.fileIn = "DeBelloGallico.txt";
+        this.fileIn = "WarAndPeace-LeoTolstoy.txt";
         System.out.println("Enter MAXWORDS");
-        this.maxWords = 100; 
+        this.maxWords = 130;
         //this.maxWords = sc.nextInt();
         //sc.nextLine();
         System.out.println("Enter SAVEAS");

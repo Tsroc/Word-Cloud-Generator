@@ -24,9 +24,10 @@ public class HelloWorld{
         //requires test and ? fix
         for (Map.Entry<String, Integer> ft: menu.frequencyTable.entrySet()){
             words[i] = new Word(ft.getKey(), ft.getValue());
-            wcg = new WordCloudCreator(words[i]);
-            if (i >= menu.maxWords) break; else i++;
+            if (i >= menu.maxWords) break; else i++;    //may not be necessary
         }
+
+        wcg = new WordCloudCreator(words);
         
 
         WordCloudCreator.saveImg(menu.fileOut);

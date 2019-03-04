@@ -41,7 +41,7 @@ that covers this same territory: Beautiful Visualization, Chapter 3: Wordle
 
 */
 public class WordCloudCreator {   
-    Color[] colors = {Color.blue, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
+    Color[] colors = {Color.white, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
     //static int[] wordSizes = {12, 12, 27, 42, 67, 100};
     //static int[] wordSizes = {10, 10, 10, 10, 10, 10};
     final static int sizeX = 600;
@@ -51,7 +51,7 @@ public class WordCloudCreator {
     static BufferedImage image= new BufferedImage(sizeX, sizeY, BufferedImage.TYPE_4BYTE_ABGR);
     private static java.util.Random rnd = new java.util.Random();
     static boolean first = true;
-    static Point point;
+    //static Point point;
     //must create a function to modify x and y
     //must also check for collision
     //must know the height of words
@@ -62,27 +62,67 @@ public class WordCloudCreator {
     
        
     //constructor
-    WordCloudCreator(Word word)
+    WordCloudCreator(Word[] words)
     {
         //below inputs are for test purposes, all of the text is currently on top of each other
         //unsure how to ensure the text is correctly positioned
         //how to handle the change of size and color?
         //if I know number of numbers to be displayed then it could be % based, would require a size to be set which can be done statically
         //or passed when a word is created
-        graphics.setColor(colors[(int)word.weight]);
-        graphics.setFont(word.getFont());
+        
+        //graphics.setColor(colors[(int)word.weight]);
+        //graphics.setFont(word.getFont());
+        
         //fontMetrics fm = graphics.getFontMetrics();
         //word.fontWidth = graphics.getFontMetrics().stringWidth(word.word);
         //word.fontHeight = graphics.getFontMetrics().getMaxDescent();
-        word.setFontMetrics(graphics.getFontMetrics());
 
-        point = setLocation(word);
+        //word.setFontMetrics(graphics.getFontMetrics());
+
+        //word.startingPoint = setLocation(word);
+
         //System.out.println("DEBUG: " + graphics.getFontMetrics().stringWidth(word.word));
         //graphics.drawString(word.word, x, y);//to be changed
         //point = new Point(x, y);
-        graphics.drawString(word.word, (int)point.getX(), (int)point.getY());//to be changed
+        
+        //graphics.drawString(word.word, (int)word.startingPoint.getX(), (int)word.startingPoint.getY());//to be changed
     
+        //recreated constructor, takes array now.
+        for (int i = 0; i < words.length; i++){
+            graphics.setColor(colors[(int)words[i].weight]);
+            graphics.setFont(words[i].getFont());
+            
+            words[i].setFontMetrics(graphics.getFontMetrics());
 
+            //words[i].startingPoint = setLocation(words[i]);
+
+            //test collision
+            boolean collision = false;
+
+            do{
+                words[i].startingPoint = setLocation(words[i]);
+                collision = false;
+
+                for(int j = 0; j < words.length; j++){
+                    if (j >= i) break;
+                    //System.out.println(words[i].collisionCheck(words[j]));  //should say true
+
+                    if (words[i].collisionCheck(words[j])){
+                        collision = true;
+                        System.out.println("Reloop");
+                        break;
+                    }
+                }
+            } while (collision);
+
+            System.out.println(words[i].word + " collision: " + collision);
+            /*/rotation
+            Graphics2D g2d = (Graphics2D) graphics;
+            g2d.rotate(180);           //.setToRotation(Math.toRadians(180));
+            graphics = g2d;
+            */
+            graphics.drawString(words[i].word, (int)words[i].startingPoint.getX(), (int)words[i].startingPoint.getY());//to be changed
+        }
     }
 
     private Point setLocation(Word w){
@@ -99,6 +139,8 @@ public class WordCloudCreator {
             int x = rnd.nextInt(sizeX - w.getImgWidth());
             int y = rnd.nextInt(sizeY - w.getImgHeight());
             y += w.getImgHeight();
+
+            //point = new Point(x, y);
             point = new Point(x, y);
             return point;
         }

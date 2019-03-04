@@ -9,6 +9,7 @@ public class Word{
     Font font;
     int fontWidth;
     int fontHeight;
+    Point startingPoint;
     //must store image here and assign variables to calculate img demsions
     
     //Point point;
@@ -18,7 +19,7 @@ public class Word{
     //move functions from wordloudGenerator
     //add collision detection and placement
     public Word(String word, int wordCount){
-        this.word = word;
+        this.word = word.toUpperCase();
         this.weight = 0;
 
         highWordCount = wordCount > highWordCount? wordCount: highWordCount;
@@ -29,7 +30,8 @@ public class Word{
     public void setFontMetrics(FontMetrics fm)
     {
         this.fontWidth = fm.stringWidth(this.word);
-        this.fontHeight = fm.getMaxDescent() * 2;// + fm.getMaxAscent();
+        System.out.println("d: " + fm.getMaxDescent() + " a: " + fm.getMaxAscent() + " h: " + fm.getHeight() + " l: " + fm.getLeading());
+        this.fontHeight = fm.getMaxDescent(); //fm.getHeight() - fm.getDescent(); //fm.getMaxAscent(); // + fm.getAscent();// + fm.getMaxAscent();
     }
 
     public int getImgWidth(){
@@ -50,7 +52,7 @@ public class Word{
     }
     public int getImgHeight(){
         //System.out.println("Height: " + this.fontHeight);
-        return this.fontHeight;
+        return this.fontHeight * 3;
     }
 
     public String getWord(){
@@ -96,5 +98,33 @@ public class Word{
                 font = new Font("TimesRoman", Font.BOLD, wordSizes[0]);
                 break;
         }
+    }
+
+    
+    public boolean collisionCheck(Word w2){
+
+        final Point position = this.startingPoint;
+        final Point position2 = w2.startingPoint;
+        
+        //System.out.println("w1: " + this.startingPoint.x + "," + this.startingPoint.y + "/w2: "+ w2.startingPoint.x + "," + w2.startingPoint.y);
+        //boolean collision = true;
+
+        /*if ((position.getX() + this.getImgWidth() < position2.getX())
+                || (position2.getX() + w2.getImgWidth() < position.getX())) {*/
+        if( (position2.getX() + w2.getImgWidth() < position.getX()) || (position2.getX() > (position.getX() + this.getImgWidth()))){
+            //collision = false;
+            return false;
+        } /*else {
+            System.out.println("X: w1: " + this.startingPoint.x + "," + (this.startingPoint.x + this.getImgWidth()) + "/w2: "+ w2.startingPoint.x + "," + (w2.startingPoint.x + w2.getImgWidth()));
+        }*/
+        /*if ((position.getY() + this.getImgHeight() < position2.getY())
+                || (position2.y + w2.getImgHeight() < position.y)) {*/
+        if( (position2.getY() - w2.getImgHeight() > position.getY()) || (position2.getY() < (position.getY() - this.getImgHeight()))){
+            //collision = false;
+            return false;
+        } /*else {
+            System.out.println("Y: w1: " + this.startingPoint.y + "," + (this.startingPoint.y + this.getImgHeight()) + "/w2: "+ w2.startingPoint.y + "," + (w2.startingPoint.y + w2.getImgHeight()));
+        }*/
+        return true;//collision;
     }
 }
