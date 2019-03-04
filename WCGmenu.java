@@ -24,8 +24,8 @@ public class WCGmenu{
         //this.fileIn = "WarAndPeace-LeoTolstoy.txt";
         //this.fileIn = "PoblachtNaHEireann.txt";
         System.out.println("Enter MAXWORDS");
-        this.maxWords = 15;
-        //this.maxWords = sc.nextInt();
+        //this.maxWords = 25;
+        this.maxWords = sc.nextInt();
         //sc.nextLine();
         System.out.println("Enter SAVEAS");
         //this.fileOut = sc.nextLine();
