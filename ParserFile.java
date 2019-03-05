@@ -9,7 +9,7 @@ public class ParserFile implements Parser{
     public  void parse(String fileIn, Map<String, Integer> frequencyTable){
         String[] words;
         String delimiters = "[\\p{Punct}\\s]+";
-		String ignoreWords = new IgnoreWords().getIgnoreWords();
+		String ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
 		String line;
 		
         try {

@@ -7,7 +7,9 @@ public class HelloWorld{
         WordCloudCreator wcg;
         WCGmenu menu = new WCGmenu();
         menu.displayMenu();
-        new FileInfo().readFile(menu.fileIn, menu.getFullTable());
+        FileInfo file = new FileInfo(menu.fileIn, menu.getFullTable());
+        menu.frequencyTable = file.getFrequencyTable();
+        file.readFile();
         //menu.frequencyTable = menu.getShortTable();
         menu.frequencyTable = menu.sortTable();
         menu.frequencyTable = menu.getShortTable();

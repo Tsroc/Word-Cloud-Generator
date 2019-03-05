@@ -169,20 +169,24 @@ public class WordCloudCreator {
                 y = (tempY >= w2.getImgHeight())? (int)(w2.startingPoint.getY() + (tempY - w2.getImgHeight())): (int)(w2.startingPoint.getY() - w2.getImgHeight() - tempY/2);//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
 
             } else if (!secondFill){
-                tempX = rnd.nextInt(w2.getImgWidth() + (w2.getImgHeight() * 3));
+                tempX = rnd.nextInt(w2.getImgWidth() + (w2.getImgHeight() * 3) - w.getImgWidth());
                 x = sizeX/2 - w2.getImgWidth()/2 - (w2.getImgHeight() *3)/2 + tempX;
                 if (tempX > (int)(w2.getImgHeight() * 1.5)|| (tempX < (int)(w2.getImgHeight() * 1.5) + w2.getImgWidth())){
                     //y can be anything
                     tempY = rnd.nextInt(w2.getImgHeight() * 4);
                     y = sizeY/2 +w2.getImgHeight()*2 - tempY;
                 } else {
-                    tempY = rnd.nextInt(w2.getImgHeight()*3);
+                    tempY = rnd.nextInt(w2.getImgHeight()*3); 
+                    //tempY = rnd.nextInt(w2.getImgHeight()*4 + w.getImgWidth()); //should allow for space, wordSize + w2.height on each side
                     //tempY /= 2;
+                    //y = (tempY >= tempY/2) ? (int)() : (int)();
                     y = (tempY >= (w2.getImgWidth() + w2.getImgHeight() * 3) / 2)? (int)(w2.startingPoint.getX() + w2.getImgWidth() + tempY/2): (int)(w2.startingPoint.getY() - (w2.getImgHeight() * 1.5 - tempY/2));//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
+                    //y = (tempY >= (w2.getImgWidth() + w2.getImgHeight() * 3) / 2 - w.getImgWidth())? (int)(w2.startingPoint.getX() + w2.getImgWidth() + tempY/2): (int)(w2.startingPoint.getY() - (w2.getImgHeight() * 1.5 - tempY/2) - w.getImgWidth());//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
+
                 }
 
             } else {
-                System.out.println("Debugg");
+                //System.out.println("Debugg");
                 x = rnd.nextInt(sizeX - w.getImgWidth());
                 y = rnd.nextInt(sizeY - w.getImgHeight());
                 y += w.getImgHeight();

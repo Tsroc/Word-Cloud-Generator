@@ -23,6 +23,7 @@ public class WCGmenu{
         this.fileIn = "DeBelloGallico.txt";
         //this.fileIn = "WarAndPeace-LeoTolstoy.txt";
         //this.fileIn = "PoblachtNaHEireann.txt";
+        //this.fileIn = "https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/";
         System.out.println("Enter MAXWORDS");
         //this.maxWords = 25;
         this.maxWords = sc.nextInt();

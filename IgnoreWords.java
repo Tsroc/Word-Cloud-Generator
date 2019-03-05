@@ -4,10 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public final class IgnoreWords{
-    private String ignoreFile = "ignorewords.txt";  //can add function to change this
-    private String strIgnoreWords = null;           //can change data type which stores this data, ?tree might be prefered for fast search
+    private String ignoreFile;  // = "ignorewords.txt";  //can add function to change this
+    private String strIgnoreWords;  // = null;           //can change data type which stores this data, ?tree might be prefered for fast search
 
-    public IgnoreWords(){
+    public IgnoreWords(String ignoreFile){
+        this.ignoreFile = ignoreFile;
         this.setIgnoreWords();
     }
 
@@ -29,7 +30,7 @@ public final class IgnoreWords{
             br = new BufferedReader(new FileReader(ignoreFile));
 
             while ((line = br.readLine()) != null) {
-                sbIgnoreWords.append(line.toLowerCase());
+                sbIgnoreWords.append(line.toLowerCase());       //may change to upperCase as output is uppercase.
                 sbIgnoreWords.append(" ");
             }
             br.close();
