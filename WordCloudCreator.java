@@ -53,6 +53,7 @@ public class WordCloudCreator {
     private static java.util.Random rnd = new java.util.Random();
     static boolean first = true;
     static boolean firstFill = false;
+    static boolean secondFill = false;
     //static Point point;
     //must create a function to modify x and y
     //must also check for collision
@@ -102,10 +103,11 @@ public class WordCloudCreator {
 
             //test collision
             boolean collision = false;
-            int firstFillCheck = 0;
+            int fillCheck = 0;
 
             do{
-                if (firstFillCheck == 50){ firstFill = true; firstFillCheck = 0;}
+                if ((firstFill)&&(fillCheck >= 50)){secondFill = true; } //fillCheck = 0; }
+                if (fillCheck >= 50){ firstFill = true; fillCheck = 0;}
                 words[i].startingPoint = setLocation(words[i], words[0]);
                 collision = false;
 
@@ -115,14 +117,14 @@ public class WordCloudCreator {
                     //System.out.println(words[i].collisionCheck(words[j]));  //should say true
 
                     if (words[i].collisionCheck(words[j])){
-                        firstFillCheck++;
+                        fillCheck++;
                         collision = true;
                         //System.out.println("Reloop");
                         break;
                     }
                 }
             } while (collision);
-            firstFill = false;      //may make code very inefficien - but will make word cloud tighter
+            //firstFill = false;      //may make code very inefficien - but will make word cloud tighter
                                     //at some point this must ot be set back to true, 
             //System.out.println(words[i].word + ": bounds Test: " + ImgPlacement.inBoundsCheck(imgSize, words[i].startingPoint, words[i]));
             //System.out.println(words[i].word + " collision: " + collision);
@@ -165,10 +167,22 @@ public class WordCloudCreator {
                 tempY = rnd.nextInt(w2.getImgHeight()*2);
                 x = tempX + (int)w2.startingPoint.getX();
                 y = (tempY >= w2.getImgHeight())? (int)(w2.startingPoint.getY() + (tempY - w2.getImgHeight())): (int)(w2.startingPoint.getY() - w2.getImgHeight() - tempY/2);//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
-                
-           // } else if (!Seconfill){}
-           
+
+            } else if (!secondFill){
+                tempX = rnd.nextInt(w2.getImgWidth() + (w2.getImgHeight() * 3));
+                x = sizeX/2 - w2.getImgWidth()/2 - (w2.getImgHeight() *3)/2 + tempX;
+                if (tempX > (int)(w2.getImgHeight() * 1.5)|| (tempX < (int)(w2.getImgHeight() * 1.5) + w2.getImgWidth())){
+                    //y can be anything
+                    tempY = rnd.nextInt(w2.getImgHeight() * 4);
+                    y = sizeY/2 +w2.getImgHeight()*2 - tempY;
+                } else {
+                    tempY = rnd.nextInt(w2.getImgHeight()*3);
+                    //tempY /= 2;
+                    y = (tempY >= (w2.getImgWidth() + w2.getImgHeight() * 3) / 2)? (int)(w2.startingPoint.getX() + w2.getImgWidth() + tempY/2): (int)(w2.startingPoint.getY() - (w2.getImgHeight() * 1.5 - tempY/2));//((int)w2.startingPoint.getY() - w2.getImgHeight()) : y = 0;
+                }
+
             } else {
+                System.out.println("Debugg");
                 x = rnd.nextInt(sizeX - w.getImgWidth());
                 y = rnd.nextInt(sizeY - w.getImgHeight());
                 y += w.getImgHeight();
