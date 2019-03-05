@@ -3,81 +3,60 @@ import java.io.*;
 import java.util.Map.Entry;
 
 public class WCGmenu{
-    //vars
     String fileIn;
     int maxWords;
     String fileOut;
-    java.util.Map<String, Integer> frequencyTable = new java.util.HashMap<String, Integer>();
-    
-    //enum for fileInType
 
-    //constructors
-    //functions
+    //===== Setters/Getters[START] =====//
+    public void setFileIn(String fileIn){
+        this.fileIn = fileIn;
+    }//setFileIn()
+    public String getFileIn(){
+        return this.fileIn;
+    }//getFileIn()
+    public void setMaxWords(int maxWords){
+        this.maxWords = maxWords;
+    }//setMaxWords()
+    public int getMaxWords(){
+        return this.maxWords;
+    }//getMaxWords()
+    public void setFileOut(String fileOut){
+        this.fileOut = fileOut;
+    }//getFileOut()
+    public String getFileOut(){
+        return this.fileOut;
+    }//setFileOut()
+    //===== Setters/Getters[END] =====//
+
     public void displayMenu(){
         java.util.Scanner sc = new java.util.Scanner(System.in);
 
         //menu
         System.out.println("Command-Line-Menu");
         System.out.println("Enter FILENAME (http://www.google.com/) (DeBelloGallico.txt)");
-        //this.fileIn = sc.nextLine();
-        this.fileIn = "DeBelloGallico.txt";
-        //this.fileIn = "WarAndPeace-LeoTolstoy.txt";
-        //this.fileIn = "PoblachtNaHEireann.txt";
-        //this.fileIn = "https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/";
+        this.setFileIn(sc.nextLine());
         System.out.println("Enter MAXWORDS");
-        //this.maxWords = 25;
-        this.maxWords = sc.nextInt();
-        //sc.nextLine();
+        this.setMaxWords(sc.nextInt());
+        sc.nextLine();
         System.out.println("Enter SAVEAS");
-        //this.fileOut = sc.nextLine();
-        this.fileOut = "WordCloudImg";
+        this.setFileOut(sc.nextLine());
     }//displayMenu()
 
+    //TESTS
+    public void displayTestMenu(){
+        java.util.Scanner sc = new java.util.Scanner(System.in);
 
-    public java.util.Map<String, Integer> getFullTable(){
-        return frequencyTable;
-    }//getFullTable()
-
-    public Map<String, Integer> getShortTable(){
-        List<Map.Entry<String, Integer>> al = new LinkedList<>(this.frequencyTable.entrySet());
-		//Collections.sort(al, new MapComparator());
-		al.sort(Entry.comparingByValue());
-		Collections.reverse(al);
-		
-		Map<String, Integer> result = new LinkedHashMap<>(this.maxWords);
-		
-		int i = 0;
-		for (Entry<String, Integer> entry : al) {
-			if (i >= this.maxWords) break;
-			//System.out.println(entry.getKey() + " " + entry.getValue());
-            result.put(entry.getKey(), entry.getValue());
-            i++;
-        }
-        return result;
-    }//getShortTable()
-
-    public Map<String, Integer> sortTable(){
-        List<Map.Entry<String, Integer>> al = new LinkedList<>(this.frequencyTable.entrySet());
-		//Collections.sort(al, new MapComparator());
-		al.sort(Entry.comparingByValue());
-		Collections.reverse(al);
-		
-		Map<String, Integer> result = new LinkedHashMap<>(this.frequencyTable.size());
-		
-		for (Entry<String, Integer> entry : al) {
-			//System.out.println(entry.getKey() + " " + entry.getValue());
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;
-        
-    }//sortTable()
-
-    public void displayTable(){
-        frequencyTable.forEach((k, v) ->{
-            System.out.printf("Word: %s\tCount: %d\n", k, v);
-        });
-    }//getFullTable()
-
-
-
+        //menu
+        System.out.println("Command-Line-Menu");
+        System.out.println("Enter FILENAME (http://www.google.com/) (DeBelloGallico.txt)");
+        this.setFileIn("DeBelloGallico.txt");
+        //this.setFileIn("WarAndPeace-LeoTolstoy.txt");
+        //this.setFileIn("PoblachtNaHEireann.txt");
+        //this.setFileIn("PoblachtNaHEireann.txt");
+        //this.setFileIn("https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/");
+        System.out.println("Enter MAXWORDS");
+        this.setMaxWords(25);
+        System.out.println("Enter SAVEAS");
+        this.setFileOut("WordCloudImg");
+    }//displayMenu()
 }

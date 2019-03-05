@@ -13,16 +13,16 @@ public class FileInfo{
     //===== Setters/Getters[START] =====//
     public void setFile(String file){
         this.file = file;
-    }
+    }//setFile()
     public String getFile(){
         return this.file;
-    }
+    }//getFile()
     public void setFrequencyTable(Map<String, Integer> map){
         this.frequencyTable = map;
-    }
+    }//setFrequencyTable()
     public Map<String, Integer> getFrequencyTable(){
         return this.frequencyTable;
-    }
+    }//getFrequencyTable
     //===== Setters/Getters[END] =====//
 
     /*

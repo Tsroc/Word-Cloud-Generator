@@ -3,44 +3,47 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//note, may be best to save this in a tree structure for String strIgnoreWords;
 public final class IgnoreWords{
-    private String ignoreFile;  // = "ignorewords.txt";  //can add function to change this
-    private String strIgnoreWords;  // = null;           //can change data type which stores this data, ?tree might be prefered for fast search
+    private String ignoreFile;
+    private String ignoreWords;
 
     public IgnoreWords(String ignoreFile){
-        this.ignoreFile = ignoreFile;
+        setIgnoreFile(ignoreFile);
         this.setIgnoreWords();
-    }
+    }//constructor
 
-    public String getIgnoreWords(){
-        return this.strIgnoreWords != null ? strIgnoreWords: null;
-    }
+    //===== Setters/Getters[START] =====//
+    public void setIgnoreFile(String file){
+        this.ignoreFile = file;
+    }//setIgnoreFile()
+    public String getIgnoreFile(){
+        return this.ignoreFile;   
+    }//getIgnoreFile()
 
-    //may overRide this function to allow file to be passed, not necessary for now
     public void setIgnoreWords(){
         String line = null;
 		StringBuffer sbIgnoreWords = new StringBuffer();
-		
-		//FileReader fr;
         BufferedReader br;
         
         try {
-            //fr = new FileReader(ignoreFile);
-            //br = new BufferedReader(fr);
-            br = new BufferedReader(new FileReader(ignoreFile));
+            br = new BufferedReader(new FileReader(this.getIgnoreFile()));
 
             while ((line = br.readLine()) != null) {
-                sbIgnoreWords.append(line.toLowerCase());       //may change to upperCase as output is uppercase.
+                sbIgnoreWords.append(line.toLowerCase()); 
                 sbIgnoreWords.append(" ");
             }
             br.close();
         } catch (FileNotFoundException ex) {
-            System.out.printf("Unable to open file '%s'%n", ignoreFile);
+            System.out.printf("Unable to open file '%s'%n", this.getIgnoreFile());
         } catch (IOException ex) {
-            System.out.printf("Error reading file '%s'%n", ignoreFile);
+            System.out.printf("Error reading file '%s'%n", this.getIgnoreFile());
             // ex.printStackTrace();
         }
-        strIgnoreWords = sbIgnoreWords.toString();
+        this.ignoreWords = sbIgnoreWords.toString();
     }//getIgnoreList()
-
+    public String getIgnoreWords(){
+        return this.ignoreWords != null ? this.ignoreWords: null;
+    }//getIgnoreWords()
+    //===== Setters/Getters[END] =====//
 }
