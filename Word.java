@@ -12,6 +12,7 @@ public class Word{
     private int fontWidth;
     private int fontHeight;
     Point startingPoint;
+    private static String fontType = "Times Roman";
 
     public Word(String word, int wordCount){
         this.setWord(word.toUpperCase());
@@ -87,23 +88,23 @@ public class Word{
 
         switch (weight){
             case 5:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[weight]);
+                font = new Font(fontType, Font.BOLD, wordSizes[weight]);
                 break;
             case 4:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[weight]);
+                font = new Font(fontType, Font.BOLD, wordSizes[weight]);
                 break;
             case 3:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[weight]);
+                font = new Font(fontType, Font.BOLD, wordSizes[weight]);
                 break;
             case 2:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[weight]);
+                font = new Font(fontType, Font.BOLD, wordSizes[weight]);
                 break;
             case 1:
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[weight]);
+                font = new Font(fontType, Font.BOLD, wordSizes[weight]);
                 break;
             default:
                 //do not reach 
-                font = new Font("TimesRoman", Font.BOLD, wordSizes[0]);
+                font = new Font(fontType, Font.BOLD, wordSizes[0]);
                 break;
         }
     }//createFont()
