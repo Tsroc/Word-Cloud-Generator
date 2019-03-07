@@ -1,6 +1,8 @@
 import java.awt.Point;
 
 public class ImgPlacement{
+        //Big-O running time: O(random)?
+        //Checks 4 variables
     public Point getStartLocation(int sizeX, int sizeY, Word word) {
         int x = (sizeX / 2) - (word.getImgWidth() / 2);
         int y = (sizeY / 2) + (word.getImgHeight() / 2);
@@ -8,7 +10,8 @@ public class ImgPlacement{
         return new Point(x, y);
     }
 
-    //seems to be working correctly
+        //Big-O running time: O(1)?
+        //Checks some variables from word class, best case 2 checks, worst case 4 checks
     public static boolean inBoundsCheck(Point size, Point startPoint, Word w){
         if((startPoint.getX() < 0) || (startPoint.getX() + w.getImgWidth()) > size.getX()){
             return false;
@@ -19,6 +22,10 @@ public class ImgPlacement{
         return true;
     }
 
+        //Big-O running time: O(random)?
+        //Horrible code, currently it is placing images at random and not filterning previously selected random, worst case scenario it may never end.
+        //There are some conditions set to ensure it is forced to close
+        //!This should be replaced before submission
     public Point getLocation(int sizeX, int sizeY, Word w, Word w2, boolean firstFill, boolean secondFill){
         int x, tempX;
         int y, tempY;

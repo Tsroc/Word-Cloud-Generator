@@ -55,7 +55,7 @@ public class WCGmenu{
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/");
         System.out.println("Enter MAXWORDS");
-        this.setMaxWords(25);
+        this.setMaxWords(100);
         System.out.println("Enter SAVEAS");
         this.setFileOut("WordCloudImg");
     }//displayMenu()

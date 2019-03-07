@@ -15,7 +15,7 @@ public class Word{
     private static String fontType = "Times Roman";
 
     public Word(String word, int wordCount){
-        this.setWord(word.toUpperCase());
+        this.setWord(word);
         this.setCount(wordCount);
 
         highWordCount = wordCount > highWordCount? wordCount: highWordCount;

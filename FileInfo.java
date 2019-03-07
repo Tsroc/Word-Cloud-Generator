@@ -11,12 +11,16 @@ public class FileInfo{
     }//constructor
 
     //===== Setters/Getters[START] =====//
+        //Big-O running time: O(1) as far as I am aware
+        //there is no loops here, simply returning the variables.
     public void setFile(String file){
         this.file = file;
     }//setFile()
     public String getFile(){
         return this.file;
     }//getFile()
+        //Big-O running time: O(1) I believe
+        //This is shallow a shallow copy, each element is not copied individually
     public void setFrequencyTable(Map<String, Integer> map){
         this.frequencyTable = map;
     }//setFrequencyTable()
@@ -29,6 +33,9 @@ public class FileInfo{
         This function reads for user input.
         It calls the determineFileInType() function and calls parseHtml() for webpage and parseFile() for file
     */
+
+        //Big-O running time: O(1) 
+        //There is nothing which impacts runtime. There is no loops and not much data being manipulated.
     public void readFile(){
         Parser p;
         char fileInType = this.determineFileInType();
@@ -52,7 +59,8 @@ public class FileInfo{
         This function determines what type of input the user has entered.
         It is called as part of readFile()
     */
-    //may be smarter way to determine if user input is a file or web 
+        //Big-O running time: O(1), n being length of String this.file
+        //this methos id not quite O(n) as I have reduced the search to searching 8 characters total
     private char determineFileInType(){
         // logically decide how to determine better if is website or file.
         if ((this.getFile().substring(0, 4).equals("http")) || (this.getFile().substring(0, 3).equals("www.")))

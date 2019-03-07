@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class TableFunctions{
+        //Big-O running time: O(1)
+        //returns Map object
     public static java.util.Map<String, Integer> getFullTable(Map<String, Integer> map){
         return map;
     }//getFullTable()

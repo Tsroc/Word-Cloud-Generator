@@ -2,11 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
 
 //note, may be best to save this in a tree structure for String strIgnoreWords;
 public final class IgnoreWords{
     private String ignoreFile;
-    private String ignoreWords;
+    private Set<String> ignoreWords;
 
     public IgnoreWords(String ignoreFile){
         setIgnoreFile(ignoreFile);
@@ -14,6 +16,8 @@ public final class IgnoreWords{
     }//constructor
 
     //===== Setters/Getters[START] =====//
+        //Big-O running time: O(1) as far as I am aware
+        //there is no loops here, simply returning the variables.
     public void setIgnoreFile(String file){
         this.ignoreFile = file;
     }//setIgnoreFile()
@@ -21,7 +25,12 @@ public final class IgnoreWords{
         return this.ignoreFile;   
     }//getIgnoreFile()
 
+        //Big-O running time: O(n) as far as I am aware
+        //The following is pretty horrible but I do not believe it can be improved much
+        //String line seems awful and should be replaced with StringBuffer for re-used memory space
+        //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
     public void setIgnoreWords(){
+        this.ignoreWords = new TreeSet<>();
         String line = null;
 		StringBuffer sbIgnoreWords = new StringBuffer();
         BufferedReader br;
@@ -30,8 +39,9 @@ public final class IgnoreWords{
             br = new BufferedReader(new FileReader(this.getIgnoreFile()));
 
             while ((line = br.readLine()) != null) {
-                sbIgnoreWords.append(line.toLowerCase()); 
-                sbIgnoreWords.append(" ");
+                sbIgnoreWords.setLength(0);
+                sbIgnoreWords.append(line.toUpperCase()); 
+                this.ignoreWords.add(sbIgnoreWords.toString());
             }
             br.close();
         } catch (FileNotFoundException ex) {
@@ -40,9 +50,11 @@ public final class IgnoreWords{
             System.out.printf("Error reading file '%s'%n", this.getIgnoreFile());
             // ex.printStackTrace();
         }
-        this.ignoreWords = sbIgnoreWords.toString();
     }//getIgnoreList()
-    public String getIgnoreWords(){
+
+        //Big-O running time: O(1) as far as I am aware
+        //Returns the object
+    public Set<String> getIgnoreWords(){
         return this.ignoreWords != null ? this.ignoreWords: null;
     }//getIgnoreWords()
     //===== Setters/Getters[END] =====//

@@ -4,12 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeSet;
+
 
 public class ParserFile implements Parser{
+
+        //Big-O running time: O(n) as far as I am aware
+        //The following is pretty horrible but I do not believe it can be improved much
+        //String line seems awful and should be replaced with StringBuffer for re-used memory space
+        //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
     public  void parse(String fileIn, Map<String, Integer> frequencyTable){
-        String[] words;
-        String delimiters = "[\\p{Punct}\\s]+";
-		String ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
+        String[] words;     //unsure if a different data structure will improve this, the word[] must start at begining and iterate over each element
+        String delimiters = "[\\p{Punct}\\s\\n]+";
+        
+		Set<String> ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
 		String line;
 		
         try {
@@ -18,21 +27,18 @@ public class ParserFile implements Parser{
 
             while ((line = br.readLine()) != null) {
 
-                // System.out.println(line);
-                words = line.toLowerCase().split(delimiters);
-                //words = line.toUpperCase().split(delimiters);
+                words = line.toUpperCase().split(delimiters);
 
                 // add to Map
                 for (int i = 0; i < words.length; i++) {
+                    if (words[i].length() <2) break; //I don't want words which are 1 character
                     if(ignoreWords != null) {
                         
                         if(ignoreWords.contains(words[i]))
                         {
-                            //System.out.println(words[i]);
                             break;
                         }
                     }
-                    //better way to do this 
                     if (!frequencyTable.containsKey(words[i])) {
                         frequencyTable.put(words[i], 1);
                     } else {
