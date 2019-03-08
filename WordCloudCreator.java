@@ -22,6 +22,12 @@ public class WordCloudCreator {
     private static Graphics graphics = image.getGraphics();
     
     public WordCloudCreator(Word[] words){
+        
+            //Big-O running time: O(n3)?
+            //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
+            //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
+            //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
+            //should be modified prior to submission if I can figure out how to place words in spiral
         for (int i = 0; i < words.length; i++){
             graphics.setColor(colors[(int)words[i].getWeight()]);
             graphics.setFont(words[i].getFont());

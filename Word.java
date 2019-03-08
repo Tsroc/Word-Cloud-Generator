@@ -1,5 +1,8 @@
 import java.awt.*;
 
+
+    //Big-O running time: O(1)
+    //All functions here are manipulating one object, using the variables of that object in some capacity, there is no loops
 public class Word{
     static int[] wordSizes = {12, 12, 27, 32, 47, 65};     //can be moved to enum
 

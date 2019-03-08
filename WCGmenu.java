@@ -8,6 +8,9 @@ public class WCGmenu{
     String fileOut;
 
     //===== Setters/Getters[START] =====//
+    
+        //Big-O running time: O(1)
+        //all Setter and Getter fucntions
     public void setFileIn(String fileIn){
         this.fileIn = fileIn;
     }//setFileIn()
