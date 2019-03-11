@@ -1,38 +1,35 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    Runner class contains the main method for the program.
+    Contain a HashMap which is assigned values from the FileInfo Class, this Map will then be reduced in size to the users requested word cloud size.
+    This array is then passed through the WordCloudCreator Class to create the word cloud.
+*/
+
+//ADD PACKAGE HERE
+
 import java.util.Map.Entry;
-
 import java.util.Map;
+import java.util.HashMap;
 
-public class HelloWorld{
+public class Runner{
     public static void main(String[] args){
-        System.out.println("HelloWorld");
-
-
-        java.util.Map<String, Integer> frequencyTable = new java.util.HashMap<String, Integer>();
-
+        int i = 0;
+        Map<String, Integer> frequencyTable = new HashMap<String, Integer>();
         WordCloudCreator wcg;
         WCGmenu menu = new WCGmenu();
-        //menu.displayMenu();
-        menu.displayTestMenu();
+        
+        //menu.displayTestMenu();
+        menu.displayMenu();
+
+        Word[] words = new Word[menu.maxWords];
 
         FileInfo file = new FileInfo(menu.getFileIn(), TableFunctions.getFullTable(frequencyTable));
         frequencyTable = TableFunctions.getFullTable(frequencyTable);
         file.readFile();
-        //menu.frequencyTable = menu.getShortTable();
-        frequencyTable = TableFunctions.sortTable(frequencyTable);
+        //frequencyTable = TableFunctions.sortTable(frequencyTable);
         frequencyTable = TableFunctions.getShortTable(frequencyTable, menu.getMaxWords());
 
-        //can convert String map to <Word, Integer> map, to carry weight for img creation
-        //wordCount will no longer be required, but weight will be. Weight algorithm can be placed elsewhere.
-
-        //used to determine which % the word should fall into
-        //eg: index 0 is highest, will be assigned size/color to match
-        int i = 0;
-
-        Word[] words = new Word[menu.maxWords];
-        
-        //requires test and ? fix
-
-        
             //Big-O running time: O(1) 
             //It is my understanding that 0(1) represents a constant value, where as 0(n) represenst the number of elements in a structure
             //This floop will run as many times as was input by the user at the menu screen, which is significantly less than the frequencyTables elements

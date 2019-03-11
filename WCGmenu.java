@@ -1,3 +1,12 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    This Class provides the console manu for user input. Allows the user to input file/website, wordCloud size and an output name for the word cloud.
+    A second menu is provided for test purposes.
+*/
+
+//ADD PACKAGE HERE
+
 import java.util.*;
 import java.io.*;
 import java.util.Map.Entry;

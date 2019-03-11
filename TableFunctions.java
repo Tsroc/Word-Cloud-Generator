@@ -1,3 +1,12 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    This class contains functions to manipulate the data held in a Map<String, Integer> in order to return 
+*/
+//*NOTE* currently using a LinkedHashMap to allow for an ordered Map, should be changed to a different data structure. Priority?
+
+//ADD PACKAGE HERE
+
 import java.util.Collections;
 import java.util.List;
 import java.util.LinkedList;

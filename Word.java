@@ -1,5 +1,19 @@
-import java.awt.*;
+/*
+Author: Eoin Wilkie
+Class information:
+    Words are converted to Word Class objections before being placed on the word cloud, this class calculates a weight value for the word within the word cloud,
+    which determine the size the word will display on the word cloud. It also creates a Font for the image, which is the image placed on the word cloud.
+    Font metrics are also calculated which are used to determine the size ofthe image, this is used within the collisionCheck method ensure that words on the word cloud do not overlap.
 
+    Note: factor function is used to determine the word sizes on the word cloud, this divides the words into a number between 1-5, 5 being the largest.
+        Factor value is based on the highWordCount, if the change in factor from 1 word to the next is too large, the highWordCount will be assigned the value of the
+        first of these 2 words for further calculations, this ensures there should be representation in each of the values and the words will gradually descend in value
+        as opposed to having 1 large word and the rest of the words all being the minimun size available.
+*/
+
+//ADD PACKAGE HERE
+
+import java.awt.*;
 
     //Big-O running time: O(1)
     //All functions here are manipulating one object, using the variables of that object in some capacity, there is no loops

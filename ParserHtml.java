@@ -1,3 +1,13 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    Implements Parser. Used to parse websites. Words are filterd by the following:
+        ragex: tagsTable/StringBuilder tags, the ignore list obtained from the IgnoreWords Class.
+    File is read and words are added to a Map, if the Map contains the word then the value is incremented.
+*/
+
+//ADD PACKAGE HERE
+
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

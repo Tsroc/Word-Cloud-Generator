@@ -1,3 +1,11 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    Parser Interface
+*/
+
+//ADD PACKAGE HERE
+
 import java.util.Map;
 
 public interface Parser{

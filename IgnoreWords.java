@@ -1,3 +1,11 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    This class creates the list of ignore words. Values are assigned to a TreeSet, values are read from a file and set to upper case.
+*/
+
+//ADD PACKAGE HERE
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -38,6 +46,7 @@ public final class IgnoreWords{
         try {
             br = new BufferedReader(new FileReader(this.getIgnoreFile()));
 
+            //while ((line = br.readLine()) != null) {
             while ((line = br.readLine()) != null) {
                 sbIgnoreWords.setLength(0);
                 sbIgnoreWords.append(line.toUpperCase()); 

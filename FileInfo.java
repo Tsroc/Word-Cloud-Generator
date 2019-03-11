@@ -1,3 +1,13 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    This class consists of functions to manipulate an input file for the word cloud generation
+    Type of input file will be identified(www. or file) and,
+    the readFile() calls the Parser Class and assigns the words and frequency of these words to a map.
+*/
+
+//ADD PACKAGE HERE
+
 import java.util.Map;
 
 public class FileInfo{

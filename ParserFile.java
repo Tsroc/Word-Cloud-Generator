@@ -1,3 +1,13 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    Implements Parser. Used to parse files. Words are filterd by the following:
+        ragex: "[\\p{Punct}\\s]+", the ignore list obtained from the IgnoreWords Class and by size, anything words which contain less than 2 characters are eliminated.
+    File is read and words are added to a Map, if the Map contains the word then the value is incremented.
+*/
+
+//ADD PACKAGE HERE
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -16,7 +26,7 @@ public class ParserFile implements Parser{
         //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
     public  void parse(String fileIn, Map<String, Integer> frequencyTable){
         String[] words;     //unsure if a different data structure will improve this, the word[] must start at begining and iterate over each element
-        String delimiters = "[\\p{Punct}\\s\\n]+";
+        String delimiters = "[\\p{Punct}\\s]+";
         
 		Set<String> ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
 		String line;

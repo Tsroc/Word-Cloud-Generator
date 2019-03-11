@@ -1,3 +1,13 @@
+/*
+Author: Eoin Wilkie
+Class information:
+    This class generates the word cloud from the Word[] with methods from the ImgPlacement Class.
+*/
+//*NOTE* Still some work to do here to ensure the program will run under some additional situations which may break it
+    //such as when too many words are added to the word cloud.
+
+//ADD PACKAGE HERE
+
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
@@ -12,6 +22,7 @@ public class WordCloudCreator {
     private static boolean first = true;
     private static boolean firstFill = false;
     private static boolean secondFill = false;
+    private static boolean endCheck = false;
 
     private Point imgSize = new Point(sizeX, sizeY);
     private Point point;
@@ -49,7 +60,7 @@ public class WordCloudCreator {
                     //System.out.println(words[i].collisionCheck(words[j]));  //should say true
 
                     if (words[i].collisionCheck(words[j])){
-                        fillCheck++;
+                        if(secondFill == false) fillCheck++;
                         collision = true;
                         //System.out.println("Reloop");
                         break;
