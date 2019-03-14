@@ -27,7 +27,7 @@ public final class IgnoreWords{
         //Big-O running time: O(1) as far as I am aware
         //there is no loops here, simply returning the variables.
     public void setIgnoreFile(String file){
-        this.ignoreFile = "../" + file;
+        this.ignoreFile = file;
     }//setIgnoreFile()
     public String getIgnoreFile(){
         return this.ignoreFile;   

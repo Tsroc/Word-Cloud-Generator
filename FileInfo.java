@@ -74,9 +74,9 @@ public class FileInfo{
     private char determineFileInType(){
         String file = this.getFile().substring(3, this.getFile().length());
         // logically decide how to determine better if is website or file.
-        if ((file.substring(0, 4).equals("http")) || (file.substring(0, 3).equals("www.")))
+        if ((this.getFile().substring(0, 4).equals("http")) || (this.getFile().substring(0, 3).equals("www.")))
             return 'w';
-        if (file.substring(this.getFile().length() - 3, file.length()).equals("txt"))
+        if (this.getFile().substring(this.getFile().length() - 3, this.getFile().length()).equals("txt"))
             return 'f';
         return ' ';
     }//determineFileInType()

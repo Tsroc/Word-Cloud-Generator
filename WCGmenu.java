@@ -21,7 +21,7 @@ public class WCGmenu{
         //Big-O running time: O(1)
         //all Setter and Getter fucntions
     public void setFileIn(String fileIn){
-        this.fileIn = "../" + fileIn;
+        this.fileIn = fileIn;
     }//setFileIn()
     public String getFileIn(){
         return this.fileIn;
@@ -33,7 +33,7 @@ public class WCGmenu{
         return this.maxWords;
     }//getMaxWords()
     public void setFileOut(String fileOut){
-        this.fileOut = "../" + fileOut;
+        this.fileOut = fileOut;
     }//getFileOut()
     public String getFileOut(){
         return this.fileOut;
