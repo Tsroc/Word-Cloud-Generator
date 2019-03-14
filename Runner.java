@@ -11,37 +11,57 @@ Class information:
 import java.util.Map.Entry;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Runner{
     public static void main(String[] args){
-        int i = 0;
-        Map<String, Integer> frequencyTable = new HashMap<String, Integer>();
+        int i;
+        char menuSelection = ' ';
+        Map<String, Integer> frequencyTable;
+        Word[] words;   
         WordCloudCreator wcg;
-        WCGmenu menu = new WCGmenu();
+        WCGmenu menu;
+
+        Scanner sc = new Scanner(System.in);
         
-        //menu.displayTestMenu();
-        menu.displayMenu();
+        //loop menu until exit selected
+        //loop will continue until N/n entered
+        do{
+            i = 0;
+            menu = new WCGmenu();
+            menu.displayTestMenu();
+            //menu.displayMenu();
+            frequencyTable = new HashMap<String, Integer>();
 
-        Word[] words = new Word[menu.maxWords];
+            words = new Word[menu.getMaxWords()];
 
-        FileInfo file = new FileInfo(menu.getFileIn(), TableFunctions.getFullTable(frequencyTable));
-        frequencyTable = TableFunctions.getFullTable(frequencyTable);
-        file.readFile();
-        //frequencyTable = TableFunctions.sortTable(frequencyTable);
-        frequencyTable = TableFunctions.getShortTable(frequencyTable, menu.getMaxWords());
+            FileInfo file = new FileInfo(menu.getFileIn(), TableFunctions.getFullTable(frequencyTable));
+            frequencyTable = TableFunctions.getFullTable(frequencyTable);
+            file.readFile();
+            //frequencyTable = TableFunctions.sortTable(frequencyTable);
+            frequencyTable = TableFunctions.getShortTable(frequencyTable, menu.getMaxWords());
 
-            //Big-O running time: O(1) 
-            //It is my understanding that 0(1) represents a constant value, where as 0(n) represenst the number of elements in a structure
-            //This floop will run as many times as was input by the user at the menu screen, which is significantly less than the frequencyTables elements
-            //However this may be 0(n) times if using words.length as n, but I do believe this is best case scenario what must be achieved in this loop.
-        for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
-            if (ft.getKey() == ""){ continue; }
-            //System.out.printf(".%s, %d\n", ft.getKey(), ft.getValue());
-            words[i] = new Word(ft.getKey(), ft.getValue());
-            if (i >= menu.maxWords) break; else i++;    //may not be necessary
-        }
+                //Big-O running time: O(1) 
+                //It is my understanding that 0(1) represents a constant value, where as 0(n) represenst the number of elements in a structure
+                //This floop will run as many times as was input by the user at the menu screen, which is significantly less than the frequencyTables elements
+                //However this may be 0(n) times if using words.length as n, but I do believe this is best case scenario what must be achieved in this loop.
+            for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
+                if (ft.getKey() == ""){ continue; }
+                //System.out.printf(".%s, %d\n", ft.getKey(), ft.getValue());
+                words[i] = new Word(ft.getKey(), ft.getValue());
+                if (i >= menu.getMaxWords()) break; else i++;    //may not be necessary
+            }
 
-        wcg = new WordCloudCreator(words);
-        WordCloudCreator.saveImg(menu.fileOut);
+            wcg = new WordCloudCreator(words);
+
+            //check if file exists already, if so, ust re-set factor sizing and other static var's which have been changed
+            WordCloudCreator.saveImg(menu.getFileOut());
+
+            System.out.println("Image created.");
+            System.out.print("\nCreate a new word cloud?: Y/n ");
+            menuSelection = sc.next().toUpperCase().charAt(0);
+            System.out.println();
+
+        }while((menuSelection != 'N'));//||(menuSelection != 'n'));
     }
 }

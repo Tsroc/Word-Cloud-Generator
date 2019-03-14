@@ -45,7 +45,7 @@ public class WCGmenu{
 
         //menu
         System.out.println("Command-Line-Menu");
-        System.out.println("Enter FILENAME (http://www.google.com/) (DeBelloGallico.txt)");
+        System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
         this.setFileIn(sc.nextLine());
         System.out.println("Enter MAXWORDS");
         this.setMaxWords(sc.nextInt());
@@ -60,14 +60,14 @@ public class WCGmenu{
 
         //menu
         System.out.println("Command-Line-Menu");
-        System.out.println("Enter FILENAME (http://www.google.com/) (DeBelloGallico.txt)");
+        System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
         this.setFileIn("DeBelloGallico.txt");
         //this.setFileIn("WarAndPeace-LeoTolstoy.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/");
         System.out.println("Enter MAXWORDS");
-        this.setMaxWords(100);
+        this.setMaxWords(150);
         System.out.println("Enter SAVEAS");
         this.setFileOut("WordCloudImg");
     }//displayMenu()

@@ -29,7 +29,8 @@ public class Word{
     private int fontWidth;
     private int fontHeight;
     Point startingPoint;
-    private static String fontType = "Times Roman";
+    //private static String fontType = "Times Roman";
+    private static String fontType = "Serif";
 
     public Word(String word, int wordCount){
         this.setWord(word);
@@ -59,6 +60,9 @@ public class Word{
     public float getWeight(){
         return this.weight;
     }//getWeight()
+    public static void setFactor(int factor){
+        Word.factor = factor;
+    }
     //===== Setters/Getters[END] =====//
 
     //===== FontMetrics[START] =====//
