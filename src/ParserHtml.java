@@ -41,7 +41,8 @@ public class ParserHtml implements Parser{
 
 		try {
 			System.out.println("Reading a webpage.");
-			java.net.URL url = new java.net.URL(webIn);
+			java.net.URL url = new java.net.URL(webIn.substring(3, webIn.length()));
+        
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
 
 			while ((line = br.readLine()) != null) {

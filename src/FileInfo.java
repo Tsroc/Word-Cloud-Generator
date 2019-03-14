@@ -72,11 +72,11 @@ public class FileInfo{
         //Big-O running time: O(1), n being length of String this.file
         //this methos id not quite O(n) as I have reduced the search to searching 8 characters total
     private char determineFileInType(){
+        String file = this.getFile().substring(3, this.getFile().length());
         // logically decide how to determine better if is website or file.
-        if ((this.getFile().substring(0, 4).equals("http")) || (this.getFile().substring(0, 3).equals("www.")))
+        if ((file.substring(0, 4).equals("http")) || (file.substring(0, 3).equals("www.")))
             return 'w';
-        if (this.getFile().substring(this.getFile().length() - 3, this.getFile().length()).equals("txt"))
-
+        if (file.substring(this.getFile().length() - 3, file.length()).equals("txt"))
             return 'f';
         return ' ';
     }//determineFileInType()
