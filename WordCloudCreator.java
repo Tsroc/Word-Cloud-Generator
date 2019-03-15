@@ -11,15 +11,10 @@ Class information:
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
-
-import javafx.scene.canvas.GraphicsContext;
-
 import java.io.*;
 import java.util.Random;
 
 public class WordCloudCreator {   
-    //private Color[] colors = {Color.white, Color.cyan, Color.green, Color.yellow, Color.orange, Color.red};  //can be moved to enum
-    //private Color[] colors = {new Color(0x151B54), new Color(0x4863A0), new Color(0x488AC7), new Color(0x3BB9FF)};
     private Color[] colors = {new Color(0x50C9CE), new Color(0x72A1E5), new Color(0x9883E5), new Color(0xFCD3DE)};
     private final static int sizeX = 600;
     private final static int sizeY = 300;
@@ -44,7 +39,7 @@ public class WordCloudCreator {
             //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
             //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
             //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
-            //should be modified prior to submission if I can figure out how to place words in spiral
+            //could ignore collision checks and place words randomly for Big-O: O(n)
         this.first = true;
         this.firstFill = false;
         this.secondFill = false;
@@ -53,12 +48,10 @@ public class WordCloudCreator {
         placement = new ImgPlacement();
         graphics = image.getGraphics();
         Random rnd = new Random();
-        //graphics.drawRect(-1, -1, sizeX+1, sizeY+1);
         graphics.setColor(new Color(0x2E382E));
         graphics.fillRect(-1, -1, sizeX+1, sizeY+1);
 
         for (int i = 0; i < words.length; i++){
-            //graphics.setColor(colors[(int)words[i].getWeight()]);
             graphics.setColor(colors[rnd.nextInt(4)]);
             graphics.setFont(words[i].getFont());
             words[i].setFontMetrics(graphics.getFontMetrics());
