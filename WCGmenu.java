@@ -12,9 +12,9 @@ import java.io.*;
 import java.util.Map.Entry;
 
 public class WCGmenu{
-    String fileIn;
-    int maxWords;
-    String fileOut;
+    private String fileIn;
+    private int maxWords;
+    private String fileOut;
 
     //===== Setters/Getters[START] =====//
     
@@ -62,6 +62,7 @@ public class WCGmenu{
         System.out.println("Command-Line-Menu");
         System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
         this.setFileIn("DeBelloGallico.txt");
+        //this.setFileIn("https://www.independent.ie/news/");
         //this.setFileIn("WarAndPeace-LeoTolstoy.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");

@@ -27,7 +27,7 @@ public class ParserHtml implements Parser{
 		StringBuilder tags = new StringBuilder();
 		BufferedReader br;
 		Set<String> ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
-        String[] words;
+        String[] words;	
 		String line;
 
 		for (int i=0;i<tagsTab.length;i++) {
@@ -46,10 +46,12 @@ public class ParserHtml implements Parser{
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
 
 			while ((line = br.readLine()) != null) {
-				line = line.toLowerCase().replaceAll("\\<.*?>","");
+				//line = line.toLowerCase().replaceAll("\\<.*?>","");
+				line = line.toUpperCase().replaceAll("\\<.*?>","");
 				//System.out.println(line);
 				line.replaceAll(pattern, "");
-				words = line.toLowerCase().split(pattern);
+				//words = line.toLowerCase().split(pattern);
+				words = line.split(pattern);
 
 				// add to Map
 				for (int i = 0; i < words.length; i++) {

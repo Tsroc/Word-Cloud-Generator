@@ -1,3 +1,7 @@
+/*
+	Class to be modified to work with WORD object
+*/
+
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,8 +17,4 @@ public class MapComparator <K, V extends Comparable<V>> implements Comparator <M
 			return 0; //The same as...or equal...
 		}
 	}
-
-
-
-
 }

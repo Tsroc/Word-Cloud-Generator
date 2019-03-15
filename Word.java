@@ -36,6 +36,8 @@ public class Word{
         this.setWord(word);
         this.setCount(wordCount);
 
+        //Word construction must be changed to allow for each word to be creates as a Word with unnecessary work left until later
+        //font/weight only required for inputed word count amount
         highWordCount = wordCount > highWordCount? wordCount: highWordCount;
         calculateValue(wordCount);
         createFont();

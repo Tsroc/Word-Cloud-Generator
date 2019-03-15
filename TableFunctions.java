@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+//table functions to be changed in order to make use of priority queue
 public class TableFunctions{
         //Big-O running time: O(1)
         //returns Map object
