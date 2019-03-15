@@ -23,13 +23,12 @@ public class Word{
     private String word;
     private int count;
     private float weight;
-    static float highWordCount = 0;  //set by constructor - used to assign weight
+    private static float highWordCount = 0;  //set by constructor - used to assign weight
     private static int factor = 5;
     private Font font;
     private int fontWidth;
     private int fontHeight;
     Point startingPoint;
-    //private static String fontType = "Times Roman";
     private static String fontType = "Serif";
 
     public Word(String word, int wordCount){
@@ -39,8 +38,7 @@ public class Word{
         //Word construction must be changed to allow for each word to be creates as a Word with unnecessary work left until later
         //font/weight only required for inputed word count amount
         highWordCount = wordCount > highWordCount? wordCount: highWordCount;
-        calculateValue(wordCount);
-        createFont();
+        this.calculateValue();      //cannot move this from here, unsure why errors occur
     }//constructor
 
     //===== Setters/Getters[START] =====//
@@ -93,11 +91,15 @@ public class Word{
         if words are not ordered as they are created, this would need be called on each word after all are created
         Unnecessary due to how they are created in this program.
     */
-    public void calculateValue(int wordCount){
-        this.setWeight((wordCount / highWordCount) * (factor / 1));
-        if (this.getWeight() < factor){// - 0.5) { //seems to be a decent place to split it, can be changed.  Looks reasonable for {20, 100, 1000} words
-            this.setWeight(--factor);
+    public void calculateValue(){
+        this.setWeight((this.count / highWordCount) * (factor / 1));
+        if (this.getWeight() < factor - 0.5) { //seems to be a decent place to split it, can be changed.  Looks reasonable for {20, 100, 1000} words
+           if (factor > 0){ 
+                this.setWeight(--factor);
+                Word.highWordCount = this.count;
+            }
         }
+        //System.out.println("Weight: " + this.weight);
     }//calculateValue();
     public Font getFont(){
         return this.font;
@@ -106,8 +108,8 @@ public class Word{
     /*
         Creates a Font for each word based on word.weight
     */
-    private void createFont(){
-        int weight = (int)this.weight;
+    public void createFont(){
+        int weight = (int)Math.ceil(this.weight);
 
         switch (weight){
             case 5:

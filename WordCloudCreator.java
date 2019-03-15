@@ -52,6 +52,8 @@ public class WordCloudCreator {
         graphics.fillRect(-1, -1, sizeX+1, sizeY+1);
 
         for (int i = 0; i < words.length; i++){
+            words[i].createFont();
+            
             graphics.setColor(colors[rnd.nextInt(4)]);
             graphics.setFont(words[i].getFont());
             words[i].setFontMetrics(graphics.getFontMetrics());
@@ -59,10 +61,15 @@ public class WordCloudCreator {
             //test collision
             boolean collision = false;
             int fillCheck = 0;
+            boolean exit = false;
+            int exitCheck = 0;
 
             do{
-                if ((this.firstFill)&&(fillCheck >= 50)){this.secondFill = true; } //fillCheck = 0; }
-                if (fillCheck >= 50){ this.firstFill = true; fillCheck = 0;}
+                if(exit == true){ break; }
+                else if(exitCheck > words.length * 5){ exit = true; }
+                else if(this.secondFill == true){ exitCheck++;}
+                else if ((this.firstFill)&&(fillCheck >= 50)){this.secondFill = true; } //fillCheck = 0; }
+                else if (fillCheck >= 50){ this.firstFill = true; fillCheck = 0;}
                 words[i].startingPoint = setLocation(words[i], words[0]);
                 collision = false;
 
@@ -79,6 +86,8 @@ public class WordCloudCreator {
                     }
                 }
             } while (collision);
+
+            if(exit == true){ break; }//ensures program will run if words.length is too large
 
             graphics.drawString(words[i].getWord(), (int)words[i].startingPoint.getX(), (int)words[i].startingPoint.getY());//to be changed
             Word.setFactor(5);
