@@ -18,12 +18,12 @@ import java.awt.*;
     //Big-O running time: O(1)
     //All functions here are manipulating one object, using the variables of that object in some capacity, there is no loops
 public class Word{
-    static int[] wordSizes = {12, 12, 27, 32, 47, 65};     //can be moved to enum
+    static int[] wordSizes = {12, 12, 24, 36, 48, 62};     //can be moved to enum
 
     private String word;
     private int count;
     private float weight;
-    private static float highWordCount = 0;  //set by constructor - used to assign weight
+    static float highWordCount = 0;  //set by constructor - used to assign weight
     private static int factor = 5;
     private Font font;
     private int fontWidth;
@@ -34,11 +34,7 @@ public class Word{
     public Word(String word, int wordCount){
         this.setWord(word);
         this.setCount(wordCount);
-
-        //Word construction must be changed to allow for each word to be creates as a Word with unnecessary work left until later
-        //font/weight only required for inputed word count amount
-        highWordCount = wordCount > highWordCount? wordCount: highWordCount;
-        this.calculateValue();      //cannot move this from here, unsure why errors occur
+        //highWordCount = wordCount > highWordCount? wordCount: highWordCount;
     }//constructor
 
     //===== Setters/Getters[START] =====//
@@ -62,6 +58,9 @@ public class Word{
     }//getWeight()
     public static void setFactor(int factor){
         Word.factor = factor;
+    }
+    public static int getFactor(){
+        return Word.factor;
     }
     //===== Setters/Getters[END] =====//
 
@@ -92,13 +91,14 @@ public class Word{
         Unnecessary due to how they are created in this program.
     */
     public void calculateValue(){
-        this.setWeight((this.count / highWordCount) * (factor / 1));
-        if (this.getWeight() < factor - 0.5) { //seems to be a decent place to split it, can be changed.  Looks reasonable for {20, 100, 1000} words
-           if (factor > 0){ 
-                this.setWeight(--factor);
-                Word.highWordCount = this.count;
-            }
-        }
+        if (highWordCount == 0) highWordCount = this.count;
+        if (Word.getFactor() < 0) Word.setFactor(1);
+        this.setWeight((this.count / Word.highWordCount) * (Word.getFactor() / 1));
+        /*if (this.getWeight() < Word.getFactor() - 1) { //seems to be a decent place to split it, can be changed.  Looks reasonable for {20, 100, 1000} words
+            Word.setFactor(Word.getFactor() - 1);
+            this.setWeight(Word.getFactor());
+            Word.highWordCount = this.count;
+        }*/
         //System.out.println("Weight: " + this.weight);
     }//calculateValue();
     public Font getFont(){

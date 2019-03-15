@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-//table functions to be changed in order to make use of priority queue
+//Only function used here is getFullTable(), the others have been created for earlier design
 public class TableFunctions{
         //Big-O running time: O(1)
         //returns Map object
@@ -44,7 +44,7 @@ public class TableFunctions{
             i++;
         }
         return result;
-    }//getShortTable()
+    }//getShortTable() - UNUSED
 
         //Big-O running time: O(n) or O(n2) - (not quite n2 I think)?
         //Same as previous
@@ -65,7 +65,7 @@ public class TableFunctions{
             result.put(entry.getKey(), entry.getValue());
         }
         return result;
-    }//sortTable()
+    }//sortTable() - UNUSED
 
     
         //Big-O running time: O(n) - ?
@@ -74,5 +74,5 @@ public class TableFunctions{
         map.forEach((k, v) ->{
             System.out.printf("Word: %s\tCount: %d\n", k, v);
         });
-    }//getFullTable()
+    }//getFullTable() - UNUSED
 }

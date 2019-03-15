@@ -12,14 +12,17 @@ import java.util.Map.Entry;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class Runner{
     public static void main(String[] args){
         int i;
         char menuSelection = ' ';
         Map<String, Integer> frequencyTable;
-        Word[] words;       //must change how Word collection is created, store as priority queue and implement comparitor on queue
+        //Word[] words;       //must change how Word collection is created, store as priority queue and implement comparitor on queue
                             //will reduce the sorting work
+        Queue<Word> words;
         WordCloudCreator wcg;
         WCGmenu menu;
 
@@ -33,14 +36,11 @@ public class Runner{
             menu.displayTestMenu();
             //menu.displayMenu();
             frequencyTable = new HashMap<String, Integer>();
-
-            words = new Word[menu.getMaxWords()];
+            words = new PriorityQueue<>(menu.getMaxWords(), new WordComparator());      //orders list
 
             FileInfo file = new FileInfo(menu.getFileIn(), TableFunctions.getFullTable(frequencyTable));
             frequencyTable = TableFunctions.getFullTable(frequencyTable);
             file.readFile();
-            //frequencyTable = TableFunctions.sortTable(frequencyTable);
-            frequencyTable = TableFunctions.getShortTable(frequencyTable, menu.getMaxWords());
 
                 //Big-O running time: O(1) 
                 //It is my understanding that 0(1) represents a constant value, where as 0(n) represenst the number of elements in a structure
@@ -49,12 +49,11 @@ public class Runner{
             for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
                 if (ft.getKey() == ""){ continue; }
                 //System.out.printf(".%s, %d\n", ft.getKey(), ft.getValue());
-                words[i] = new Word(ft.getKey(), ft.getValue());
+                words.offer(new Word(ft.getKey(), ft.getValue()));
                 if (i >= menu.getMaxWords()) break; else i++;    //may not be necessary
             }
 
             wcg = new WordCloudCreator(words);
-
             //check if file exists already, if so, ust re-set factor sizing and other static var's which have been changed
             WordCloudCreator.saveImg(menu.getFileOut());
 

@@ -13,6 +13,7 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 import java.util.Random;
+import java.util.Queue;
 
 public class WordCloudCreator {   
     private Color[] colors = {new Color(0x50C9CE), new Color(0x72A1E5), new Color(0x9883E5), new Color(0xFCD3DE)};
@@ -33,7 +34,7 @@ public class WordCloudCreator {
     private ImgPlacement placement;
     private static Graphics graphics;
     
-    public WordCloudCreator(Word[] words){
+    public WordCloudCreator(Queue<Word> words){
 
             //Big-O running time: O(n3)?
             //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
@@ -50,13 +51,21 @@ public class WordCloudCreator {
         Random rnd = new Random();
         graphics.setColor(new Color(0x2E382E));
         graphics.fillRect(-1, -1, sizeX+1, sizeY+1);
+        Word currentWord;
+        //copy words to array for collision check
+        Word[] wordsArray = new Word[words.size()];
 
-        for (int i = 0; i < words.length; i++){
-            words[i].createFont();
-            
+        for (int i = 0; i < words.size(); i++){
+            currentWord = words.poll();
+            //add to array for collision check
+            wordsArray[i] = currentWord;
+
+            currentWord.calculateValue();
+            //System.out.println(currentWord.getWord() + "!" + currentWord.getCount() +"!" + currentWord.getWeight());
+            currentWord.createFont();
             graphics.setColor(colors[rnd.nextInt(4)]);
-            graphics.setFont(words[i].getFont());
-            words[i].setFontMetrics(graphics.getFontMetrics());
+            graphics.setFont(currentWord.getFont());
+            currentWord.setFontMetrics(graphics.getFontMetrics());
 
             //test collision
             boolean collision = false;
@@ -66,19 +75,19 @@ public class WordCloudCreator {
 
             do{
                 if(exit == true){ break; }
-                else if(exitCheck > words.length * 5){ exit = true; }
+                else if(exitCheck > words.size() * 5){ exit = true; }
                 else if(this.secondFill == true){ exitCheck++;}
                 else if ((this.firstFill)&&(fillCheck >= 50)){this.secondFill = true; } //fillCheck = 0; }
                 else if (fillCheck >= 50){ this.firstFill = true; fillCheck = 0;}
-                words[i].startingPoint = setLocation(words[i], words[0]);
+                currentWord.startingPoint = setLocation(currentWord, wordsArray[0]);
                 collision = false;
 
-                for(int j = 0; j < words.length; j++){
+                for(int j = 0; j < words.size(); j++){
                     //System.out.println("I: " + i + ", J: " + j);
                     if (j >= i) break;
                     //System.out.println(words[i].collisionCheck(words[j]));  //should say true
 
-                    if (words[i].collisionCheck(words[j])){
+                    if (currentWord.collisionCheck(wordsArray[j])){
                         if(secondFill == false) fillCheck++;
                         collision = true;
                         //System.out.println("Reloop");
@@ -89,7 +98,7 @@ public class WordCloudCreator {
 
             if(exit == true){ break; }//ensures program will run if words.length is too large
 
-            graphics.drawString(words[i].getWord(), (int)words[i].startingPoint.getX(), (int)words[i].startingPoint.getY());//to be changed
+            graphics.drawString(currentWord.getWord(), (int)currentWord.startingPoint.getX(), (int)currentWord.startingPoint.getY());//to be changed
             Word.setFactor(5);
         }
     }//constructor
