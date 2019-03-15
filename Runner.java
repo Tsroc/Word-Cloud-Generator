@@ -18,7 +18,8 @@ public class Runner{
         int i;
         char menuSelection = ' ';
         Map<String, Integer> frequencyTable;
-        Word[] words;       //must change how Word collection is created, store as priority queue and implement comparitor on queue 
+        Word[] words;       //must change how Word collection is created, store as priority queue and implement comparitor on queue
+                            //will reduce the sorting work
         WordCloudCreator wcg;
         WCGmenu menu;
 
