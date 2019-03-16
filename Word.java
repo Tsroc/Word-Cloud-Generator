@@ -23,7 +23,7 @@ public class Word{
     private String word;
     private int count;
     private float weight;
-    static float highWordCount = 0;  //set by constructor - used to assign weight
+    static float highWordCount = 0;
     private static int factor = 5;
     private Font font;
     private int fontWidth;
@@ -86,7 +86,7 @@ public class Word{
     //===== FontMetrics[END] =====/
 
     /*
-        Called in constructor to calculate the value of the word based on word count
+        Calculate the value of the word based on word count
         if words are not ordered as they are created, this would need be called on each word after all are created
         Unnecessary due to how they are created in this program.
     */

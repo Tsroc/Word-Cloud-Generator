@@ -20,15 +20,12 @@ public class Runner{
         int i;
         char menuSelection = ' ';
         Map<String, Integer> frequencyTable;
-        //Word[] words;       //must change how Word collection is created, store as priority queue and implement comparitor on queue
-                            //will reduce the sorting work
         Queue<Word> words;
         WordCloudCreator wcg;
         WCGmenu menu;
 
         Scanner sc = new Scanner(System.in);
         
-        //loop menu until exit selected
         //loop will continue until N/n entered
         do{
             i = 0;
@@ -42,19 +39,17 @@ public class Runner{
             frequencyTable = TableFunctions.getFullTable(frequencyTable);
             file.readFile();
 
-                //Big-O running time: O(1) 
-                //It is my understanding that 0(1) represents a constant value, where as 0(n) represenst the number of elements in a structure
-                //This floop will run as many times as was input by the user at the menu screen, which is significantly less than the frequencyTables elements
-                //However this may be 0(n) times if using words.length as n, but I do believe this is best case scenario what must be achieved in this loop.
+                //Big-O running time: O(n2)
+                //Adds every element of HashMap to Queue and sorts it, I'm not sure how bad this is
+                //It would seem that the comparitor check is quick as it simply checks value,
+                //but correct placement on the Queue seems to imply O(n2)
             for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
                 if (ft.getKey() == ""){ continue; }
                 //System.out.printf(".%s, %d\n", ft.getKey(), ft.getValue());
                 words.offer(new Word(ft.getKey(), ft.getValue()));
-                if (i >= menu.getMaxWords()) break; else i++;    //may not be necessary
             }
 
             wcg = new WordCloudCreator(words);
-            //check if file exists already, if so, ust re-set factor sizing and other static var's which have been changed
             WordCloudCreator.saveImg(menu.getFileOut());
 
             System.out.println("Image created.");
@@ -62,6 +57,6 @@ public class Runner{
             menuSelection = sc.next().toUpperCase().charAt(0);
             System.out.println();
 
-        }while((menuSelection != 'N'));//||(menuSelection != 'n'));
+        }while((menuSelection != 'N'));
     }
 }

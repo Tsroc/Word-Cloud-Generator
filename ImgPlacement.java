@@ -8,7 +8,7 @@ public class ImgPlacement{
         int y = (sizeY / 2) + (word.getImgHeight() / 2);
 
         return new Point(x, y);
-    }
+    }//getStartLocation()
 
         //Big-O running time: O(1)?
         //Checks some variables from word class, best case 2 checks, worst case 4 checks
@@ -20,7 +20,7 @@ public class ImgPlacement{
             return false;
         }
         return true;
-    }
+    }//inBoundsCheck()
 
         //Big-O running time: O(random)?
         //Horrible code, currently it is placing images at random and not filterning previously selected random, worst case scenario it may never end.
@@ -59,5 +59,5 @@ public class ImgPlacement{
         }
         point = new Point(x, y);
         return point;
-    }
+    }//getLocation()
 }

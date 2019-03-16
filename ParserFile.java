@@ -22,7 +22,6 @@ public class ParserFile implements Parser{
 
         //Big-O running time: O(n) as far as I am aware
         //The following is pretty horrible but I do not believe it can be improved much
-        //String line seems awful and should be replaced with StringBuffer for re-used memory space
         //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
     public  void parse(String fileIn, Map<String, Integer> frequencyTable){
         String[] words;     //unsure if a different data structure will improve this, the word[] must start at begining and iterate over each element

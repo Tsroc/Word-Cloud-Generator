@@ -57,11 +57,11 @@ public class WordCloudCreator {
 
         for (int i = 0; i < words.size(); i++){
             currentWord = words.poll();
-            //add to array for collision check
+            //add to array as polled from queue
             wordsArray[i] = currentWord;
 
             currentWord.calculateValue();
-            //System.out.println(currentWord.getWord() + "!" + currentWord.getCount() +"!" + currentWord.getWeight());
+            System.out.println(currentWord.getWord() + "!" + currentWord.getCount() +"!" + currentWord.getWeight());
             currentWord.createFont();
             graphics.setColor(colors[rnd.nextInt(4)]);
             graphics.setFont(currentWord.getFont());
@@ -123,7 +123,6 @@ public class WordCloudCreator {
         try {
             ImageIO.write(image, "png", new File(saveAs + ".png")); 
         } catch (IOException e) {
-            //TODO: handle exception
             System.out.printf("Error saving file '%s'%n", saveAs + ".png");
         }
         graphics.dispose();

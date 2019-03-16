@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
-//note, may be best to save this in a tree structure for String strIgnoreWords;
 public final class IgnoreWords{
     private String ignoreFile;
     private Set<String> ignoreWords;
@@ -46,7 +45,6 @@ public final class IgnoreWords{
         try {
             br = new BufferedReader(new FileReader(this.getIgnoreFile()));
 
-            //while ((line = br.readLine()) != null) {
             while ((line = br.readLine()) != null) {
                 sbIgnoreWords.setLength(0);
                 sbIgnoreWords.append(line.toUpperCase()); 

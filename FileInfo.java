@@ -15,7 +15,6 @@ public class FileInfo{
     private Map<String, Integer> frequencyTable;
 
     public FileInfo(String fileIn, Map<String, Integer> frequencyTable){
-        //replace with setters and getters;
         this.setFile(fileIn);
         this.setFrequencyTable(frequencyTable);
     }//constructor
@@ -43,7 +42,6 @@ public class FileInfo{
         This function reads for user input.
         It calls the determineFileInType() function and calls parseHtml() for webpage and parseFile() for file
     */
-
         //Big-O running time: O(1) 
         //There is nothing which impacts runtime. There is no loops and not much data being manipulated.
     public void readFile(){
@@ -70,7 +68,7 @@ public class FileInfo{
         It is called as part of readFile()
     */
         //Big-O running time: O(1), n being length of String this.file
-        //this methos id not quite O(n) as I have reduced the search to searching 8 characters total
+        //this method id not quite O(n) as I have reduced the search to searching 8 characters total
     private char determineFileInType(){
         String file = this.getFile().substring(3, this.getFile().length());
         // logically decide how to determine better if is website or file.
