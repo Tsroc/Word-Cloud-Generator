@@ -68,7 +68,7 @@ public class FileInfo{
         It is called as part of readFile()
     */
         //Big-O running time: O(1), n being length of String this.file
-        //this method id not quite O(n) as I have reduced the search to searching 8 characters total
+        //this method id not quite O(n) as I have reduced the search to searching at max 8 characters total
     private char determineFileInType(){
         String file = this.getFile().substring(3, this.getFile().length());
         // logically decide how to determine better if is website or file.
