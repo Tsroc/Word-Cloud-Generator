@@ -18,7 +18,7 @@ import java.awt.*;
     //Big-O running time: O(1)
     //All functions here are manipulating one object, using the variables of that object in some capacity, there is no loops
 public class Word{
-    static int[] wordSizes = {12, 12, 24, 36, 48, 62};     //can be moved to enum
+    static int[] wordSizes = {12, 12, 24, 36, 48, 62};
 
     private String word;
     private int count;
@@ -34,28 +34,33 @@ public class Word{
     public Word(String word, int wordCount){
         this.setWord(word);
         this.setCount(wordCount);
-        //highWordCount = wordCount > highWordCount? wordCount: highWordCount;
     }//constructor
 
     //===== Setters/Getters[START] =====//
     public void setWord(String word){
         this.word = word;
     }//setWord()
+
     public String getWord(){
         return this.word;
     }//getWord()
+
     public void setCount(int count){
         this.count = count;
     }//setCount()
+
     public int getCount(){
         return this.count;
     }//getCount()
+
     public void setWeight(float weight){
         this.weight = weight;
     }//setWeight()
+
     public float getWeight(){
         return this.weight;
     }//getWeight()
+
     public static void setFactor(int factor){
         Word.factor = factor;
     }
@@ -73,13 +78,15 @@ public class Word{
     public void setImgWidth(int width){
         this.fontWidth = width;
     }//setImgWidth()
+
     public int getImgWidth(){
         return this.fontWidth;
-
     }//getImgWidth()
+
     public void setImgHeight(int height){
         this.fontHeight = height;
     }//setImgHeight()
+
     public int getImgHeight(){
         return this.fontHeight * 3;
     }//getImgHeight()
@@ -94,13 +101,8 @@ public class Word{
         if (highWordCount == 0) highWordCount = this.count;
         if (Word.getFactor() < 0) Word.setFactor(1);
         this.setWeight((this.count / Word.highWordCount) * (Word.getFactor() / 1));
-        /*if (this.getWeight() < Word.getFactor() - 1) { //seems to be a decent place to split it, can be changed.  Looks reasonable for {20, 100, 1000} words
-            Word.setFactor(Word.getFactor() - 1);
-            this.setWeight(Word.getFactor());
-            Word.highWordCount = this.count;
-        }*/
-        //System.out.println("Weight: " + this.weight);
     }//calculateValue();
+
     public Font getFont(){
         return this.font;
     }//getFont()
@@ -133,20 +135,21 @@ public class Word{
                 break;
         }
     }//createFont()
+
     /*
         Checks for collision between 2 words based on ImgWidth and ImgHeight values
     */
+        //Big-O running time: O(1)
+        //Checks the corners of the image
     public boolean collisionCheck(Word w2){
 
         final Point position = this.startingPoint;
         final Point position2 = w2.startingPoint;
         
-        if( (position2.getX() + w2.getImgWidth() < position.getX()) || (position2.getX() > (position.getX() + this.getImgWidth()))){
+        if( (position2.getX() + w2.getImgWidth() < position.getX()) || (position2.getX() > (position.getX() + this.getImgWidth())))
             return false;
-        } 
-        if( (position2.getY() - w2.getImgHeight() > position.getY()) || (position2.getY() < (position.getY() - this.getImgHeight()))){
+        if( (position2.getY() - w2.getImgHeight() > position.getY()) || (position2.getY() < (position.getY() - this.getImgHeight())))
             return false;
-        } 
         return true;
     }//collisionCheck()
 }

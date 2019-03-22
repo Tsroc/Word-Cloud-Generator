@@ -41,6 +41,7 @@ public class WordCloudCreator {
             //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
             //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
             //could ignore collision checks and place words randomly for Big-O: O(n)
+        int arraySize = words.size();
         this.first = true;
         this.firstFill = false;
         this.secondFill = false;
@@ -53,19 +54,17 @@ public class WordCloudCreator {
         graphics.fillRect(-1, -1, sizeX+1, sizeY+1);
         Word currentWord;
         //copy words to array for collision check
-        Word[] wordsArray = new Word[words.size()];
+        Word[] wordsArray = new Word[arraySize];
 
-        for (int i = 0; i < words.size(); i++){
-            currentWord = words.poll();
+        for (int i = 0; i < arraySize; i++){
             //add to array as polled from queue
-            wordsArray[i] = currentWord;
+            wordsArray[i] = words.poll();
 
-            currentWord.calculateValue();
-            System.out.println(currentWord.getWord() + "!" + currentWord.getCount() +"!" + currentWord.getWeight());
-            currentWord.createFont();
+            wordsArray[i].calculateValue();
+            wordsArray[i].createFont();
             graphics.setColor(colors[rnd.nextInt(4)]);
-            graphics.setFont(currentWord.getFont());
-            currentWord.setFontMetrics(graphics.getFontMetrics());
+            graphics.setFont(wordsArray[i].getFont());
+            wordsArray[i].setFontMetrics(graphics.getFontMetrics());
 
             //test collision
             boolean collision = false;
@@ -73,32 +72,36 @@ public class WordCloudCreator {
             boolean exit = false;
             int exitCheck = 0;
 
+            //Big-O of following has been described within the used methods
             do{
-                if(exit == true){ break; }
-                else if(exitCheck > words.size() * 5){ exit = true; }
-                else if(this.secondFill == true){ exitCheck++;}
-                else if ((this.firstFill)&&(fillCheck >= 50)){this.secondFill = true; } //fillCheck = 0; }
-                else if (fillCheck >= 50){ this.firstFill = true; fillCheck = 0;}
-                currentWord.startingPoint = setLocation(currentWord, wordsArray[0]);
+                if(exit == true)
+                    break;
+                else if(exitCheck > 1000)
+                    exit = true; 
+                else if(this.secondFill == true)
+                    exitCheck++;
+                else if ((this.firstFill)&&(fillCheck >= 50))
+                    this.secondFill = true; 
+                else if (fillCheck >= 50){
+                    this.firstFill = true;
+                    fillCheck = 0;
+                }
+                wordsArray[i].startingPoint = setLocation(wordsArray[i], wordsArray[0]);
                 collision = false;
 
-                for(int j = 0; j < words.size(); j++){
-                    //System.out.println("I: " + i + ", J: " + j);
+                for(int j = 0; j < arraySize; j++){
                     if (j >= i) break;
-                    //System.out.println(words[i].collisionCheck(words[j]));  //should say true
 
-                    if (currentWord.collisionCheck(wordsArray[j])){
+                    if (wordsArray[i].collisionCheck(wordsArray[j])){
                         if(secondFill == false) fillCheck++;
                         collision = true;
-                        //System.out.println("Reloop");
                         break;
                     }
                 }
             } while (collision);
 
-            if(exit == true){ break; }//ensures program will run if words.length is too large
-
-            graphics.drawString(currentWord.getWord(), (int)currentWord.startingPoint.getX(), (int)currentWord.startingPoint.getY());//to be changed
+            if(exit == true) break; //ensures program will run if words.length is too large
+            graphics.drawString(wordsArray[i].getWord(), (int)wordsArray[i].startingPoint.getX(), (int)wordsArray[i].startingPoint.getY());//to be changed
             Word.setFactor(5);
         }
     }//constructor
@@ -114,12 +117,11 @@ public class WordCloudCreator {
         }
     }//setLocation()
 
-    public static void dispose()
-    {
+    public static void dispose(){
    		graphics.dispose();     
     }//dispose()
-    public static void saveImg(String saveAs)
-    {
+
+    public static void saveImg(String saveAs){
         try {
             ImageIO.write(image, "png", new File(saveAs + ".png")); 
         } catch (IOException e) {

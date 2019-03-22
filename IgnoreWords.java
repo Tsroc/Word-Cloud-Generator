@@ -28,6 +28,7 @@ public final class IgnoreWords{
     public void setIgnoreFile(String file){
         this.ignoreFile = file;
     }//setIgnoreFile()
+    
     public String getIgnoreFile(){
         return this.ignoreFile;   
     }//getIgnoreFile()

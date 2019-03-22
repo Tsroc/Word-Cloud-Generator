@@ -25,6 +25,7 @@ public class ParserFile implements Parser{
         //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
     public  void parse(String fileIn, Map<String, Integer> frequencyTable){
         String[] words;     //unsure if a different data structure will improve this, the word[] must start at begining and iterate over each element
+                            //regardless what datascructure is used, as it takes the line from file, it must all be processed word by word
         String delimiters = "[\\p{Punct}\\s]+";
         
 		Set<String> ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
@@ -35,26 +36,20 @@ public class ParserFile implements Parser{
             BufferedReader br = new BufferedReader(new FileReader(fileIn));
 
             while ((line = br.readLine()) != null) {
-
                 words = line.toUpperCase().split(delimiters);
 
                 // add to Map
                 for (int i = 0; i < words.length; i++) {
                     if (words[i].length() <2) break; //I don't want words which are 1 character
                     if(ignoreWords != null) {
-                        
                         if(ignoreWords.contains(words[i]))
-                        {
                             break;
-                        }
                     }
-                    if (!frequencyTable.containsKey(words[i])) {
+                    if (!frequencyTable.containsKey(words[i]))
                         frequencyTable.put(words[i], 1);
-                    } else {
+                    else
                         frequencyTable.put(words[i], frequencyTable.get(words[i]) + 1);
-                    }
                 }
-
             }
             System.out.println("Finished reading file.");
             br.close();
@@ -62,7 +57,6 @@ public class ParserFile implements Parser{
             System.out.printf("Unable to open file '%s'%n", fileIn);
         } catch (IOException ex) {
             System.out.printf("Error reading file '%s'%n", fileIn);
-				// ex.printStackTrace();
         }
     }//parseFile()
 }

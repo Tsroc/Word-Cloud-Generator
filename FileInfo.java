@@ -25,14 +25,17 @@ public class FileInfo{
     public void setFile(String file){
         this.file = file;
     }//setFile()
+
     public String getFile(){
         return this.file;
     }//getFile()
+    
         //Big-O running time: O(1) I believe
         //This is shallow a shallow copy, each element is not copied individually
     public void setFrequencyTable(Map<String, Integer> map){
         this.frequencyTable = map;
     }//setFrequencyTable()
+
     public Map<String, Integer> getFrequencyTable(){
         return this.frequencyTable;
     }//getFrequencyTable
