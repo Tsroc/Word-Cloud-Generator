@@ -60,7 +60,7 @@ public class Runner{
                 }
 
                 //second priorityQueue created from the highest value elements of first queue, based on word cloud size input
-                for(int i = 0; i <= menu.getMaxWords(); i++){
+                for(int i = 0; i < menu.getMaxWords(); i++){
                     tempWord = words.poll();
                     words_cloud.offer(tempWord);
                 }
