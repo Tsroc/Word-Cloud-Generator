@@ -1,7 +1,7 @@
 /*
-Author: Eoin Wilkie
-Class information:
-    Parser Interface
+    Author: Eoin Wilkie
+    Class information:
+        Parser Interface
 */
 
 //ADD PACKAGE HERE

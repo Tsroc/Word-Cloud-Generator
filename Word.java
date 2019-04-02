@@ -15,15 +15,15 @@ Class information:
 
 import java.awt.*;
 
+public class Word{
     //Big-O running time: O(1)
     //All functions here are manipulating one object, using the variables of that object in some capacity, there is no loops
-public class Word{
     static int[] wordSizes = {12, 12, 24, 36, 48, 62};
 
     private String word;
     private int count;
     private float weight;
-    static float highWordCount = 0;
+    private static int highWordCount = 0;
     private static int factor = 5;
     private Font font;
     private int fontWidth;
@@ -67,6 +67,12 @@ public class Word{
     public static int getFactor(){
         return Word.factor;
     }
+    public static void setHighWordCount(int highCount){
+        Word.highWordCount = highCount;
+    } 
+    public static int getHighWordCount(){
+        return Word.highWordCount; 
+    }
     //===== Setters/Getters[END] =====//
 
     //===== FontMetrics[START] =====//
@@ -98,9 +104,9 @@ public class Word{
         Unnecessary due to how they are created in this program.
     */
     public void calculateValue(){
-        if (highWordCount == 0) highWordCount = this.count;
+        if (Word.getHighWordCount() == 0) setHighWordCount(this.count);
         if (Word.getFactor() < 0) Word.setFactor(1);
-        this.setWeight((this.count / Word.highWordCount) * (Word.getFactor() / 1));
+        this.setWeight((this.count / Word.getHighWordCount()) * (Word.getFactor() / 1));
     }//calculateValue();
 
     public Font getFont(){
@@ -139,9 +145,9 @@ public class Word{
     /*
         Checks for collision between 2 words based on ImgWidth and ImgHeight values
     */
+    public boolean collisionCheck(Word w2){
         //Big-O running time: O(1)
         //Checks the corners of the image
-    public boolean collisionCheck(Word w2){
 
         final Point position = this.startingPoint;
         final Point position2 = w2.startingPoint;

@@ -13,19 +13,17 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
-import java.util.TreeSet;
 
 
 public class ParserFile implements Parser{
 
+    public  void parse(String fileIn, Map<String, Integer> frequencyTable){
         //Big-O running time: O(n) as far as I am aware
         //The following is pretty horrible but I do not believe it can be improved much
         //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
-    public  void parse(String fileIn, Map<String, Integer> frequencyTable){
-        String[] words;     //unsure if a different data structure will improve this, the word[] must start at begining and iterate over each element
-                            //regardless what datascructure is used, as it takes the line from file, it must all be processed word by word
+        
+        String[] words;     
         String delimiters = "[\\p{Punct}\\s]+";
         
 		Set<String> ignoreWords = new IgnoreWords("ignorewords.txt").getIgnoreWords();
@@ -40,7 +38,8 @@ public class ParserFile implements Parser{
 
                 // add to Map
                 for (int i = 0; i < words.length; i++) {
-                    if (words[i].length() <2) break; //I don't want words which are 1 character
+                    if (words[i].length() <2)  //I don't want words which are 1 character
+                        break; 
                     if(ignoreWords != null) {
                         if(ignoreWords.contains(words[i]))
                             break;

@@ -5,12 +5,11 @@ Class information:
 */
 
 import java.util.Comparator;
-import java.util.Map;
-import java.util.Map.Entry;
 
+public class WordComparator implements Comparator <Word>{
 	//Big-O running time: O(1)
 	//Runs one check per object, this is quick.
-public class WordComparator implements Comparator <Word>{
+	
 	public int compare(Word current, Word next){
 		if (current.getCount() < next.getCount()){
 			return 1; //next is greater, higher priority

@@ -23,21 +23,21 @@ public final class IgnoreWords{
     }//constructor
 
     //===== Setters/Getters[START] =====//
-        //Big-O running time: O(1) as far as I am aware
-        //there is no loops here, simply returning the variables.
+    //Big-O running time: O(1) as far as I am aware
+    //there is no loops here, simply returning the variables.
     public void setIgnoreFile(String file){
         this.ignoreFile = file;
     }//setIgnoreFile()
-    
     public String getIgnoreFile(){
         return this.ignoreFile;   
     }//getIgnoreFile()
 
+    public void setIgnoreWords(){
         //Big-O running time: O(n) as far as I am aware
         //The following is pretty horrible but I do not believe it can be improved much
         //String line seems awful and should be replaced with StringBuffer for re-used memory space
         //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
-    public void setIgnoreWords(){
+
         this.ignoreWords = new TreeSet<>();
         String line = null;
 		StringBuffer sbIgnoreWords = new StringBuffer();
@@ -60,9 +60,10 @@ public final class IgnoreWords{
         }
     }//getIgnoreList()
 
+    public Set<String> getIgnoreWords(){
         //Big-O running time: O(1) as far as I am aware
         //Returns the object
-    public Set<String> getIgnoreWords(){
+
         return this.ignoreWords != null ? this.ignoreWords: null;
     }//getIgnoreWords()
     //===== Setters/Getters[END] =====//

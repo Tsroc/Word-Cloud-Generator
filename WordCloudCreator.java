@@ -3,8 +3,6 @@ Author: Eoin Wilkie
 Class information:
     This class generates the word cloud from the Word[] with methods from the ImgPlacement Class.
 */
-//*NOTE* Still some work to do here to ensure the program will run under some additional situations which may break it
-    //such as when too many words are added to the word cloud.
 
 //ADD PACKAGE HERE
 
@@ -35,12 +33,12 @@ public class WordCloudCreator {
     private static Graphics graphics;
     
     public WordCloudCreator(Queue<Word> words){
+        //Big-O running time: O(n3)?
+        //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
+        //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
+        //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
+        //could ignore collision checks and place words randomly for Big-O: O(n)
 
-            //Big-O running time: O(n3)?
-            //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
-            //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
-            //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
-            //could ignore collision checks and place words randomly for Big-O: O(n)
         int arraySize = words.size();
         this.first = true;
         this.firstFill = false;
@@ -52,9 +50,12 @@ public class WordCloudCreator {
         Random rnd = new Random();
         graphics.setColor(new Color(0x2E382E));
         graphics.fillRect(-1, -1, sizeX+1, sizeY+1);
-        Word currentWord;
         //copy words to array for collision check
         Word[] wordsArray = new Word[arraySize];
+
+        //resetting static word variables.
+        Word.setFactor(5);
+        Word.setHighWordCount(0);
 
         for (int i = 0; i < arraySize; i++){
             //add to array as polled from queue
@@ -102,7 +103,6 @@ public class WordCloudCreator {
 
             if(exit == true) break; //ensures program will run if words.length is too large
             graphics.drawString(wordsArray[i].getWord(), (int)wordsArray[i].startingPoint.getX(), (int)wordsArray[i].startingPoint.getY());//to be changed
-            Word.setFactor(5);
         }
     }//constructor
 

@@ -1,18 +1,31 @@
 import java.awt.Point;
 
+/*
+    Author: Eoin Wilkie
+    Class information:
+        Parser Interface
+        This class is used to determine the placement of the word images on the canvas.
+*/
 public class ImgPlacement{
-        //Big-O running time: O(1)?
-        //Checks 4 variables, positions first word in middle of canvas
+    /*
+        Used to determine the mid point of the canvas, used for placement of the first word.
+    */
     public Point getStartLocation(int sizeX, int sizeY, Word word) {
+        //Big-O running time: O(1)
+        //Checks 4 variables, and determines the mid point.
+
         int x = (sizeX / 2) - (word.getImgWidth() / 2);
         int y = (sizeY / 2) + (word.getImgHeight() / 2);
-
         return new Point(x, y);
     }//getStartLocation()
 
-        //Big-O running time: O(1)?
-        //Checks some variables from word class, best case 2 checks, worst case 4 checks
+    /*
+        Used to ensure wordplacement does not extend past the visible canvas.
+    */
     public static boolean inBoundsCheck(Point size, Point startPoint, Word w){
+        //Big-O running time: O(1)
+        //Checks some variables from word class, best case 2 checks, worst case 4 checks
+
         if((startPoint.getX() < 0) || (startPoint.getX() + w.getImgWidth()) > size.getX())
             return false;
         if((startPoint.getY() + w.getImgHeight() < 0) || (startPoint.getY()  > size.getY()))
@@ -20,11 +33,18 @@ public class ImgPlacement{
         return true;
     }//inBoundsCheck()
 
-        //Big-O running time: O(random)?
-        //Horrible code, currently it is placing images at random and not filterning previously selected random, worst case scenario it may never end.
+    /*
+        Used to place all word images after first.
+        Word are placed within areas sorrounding the first word.
+        Initially words are placed within an area around he first word, when this area fills the words are placed in an extended area.
+        After this second area is filled words are placed anywhere on the remaining canvas.
+    */
+    public Point getLocation(int sizeX, int sizeY, Word w, Word w2, boolean firstFill, boolean secondFill){
+        //Big-O running time: O(n3)? Unsure how to lable this.
+        //Horrible code, currently it is placing images at random and not filterning previously selected random.
         //There are some conditions set to ensure it is forced to close
         //better implementation outside of the scope of this project
-    public Point getLocation(int sizeX, int sizeY, Word w, Word w2, boolean firstFill, boolean secondFill){
+
         int x, tempX;
         int y, tempY;
         Point point;

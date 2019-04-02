@@ -7,10 +7,6 @@ Class information:
 
 //ADD PACKAGE HERE
 
-import java.util.*;
-import java.io.*;
-import java.util.Map.Entry;
-
 public class WCGmenu{
     private String fileIn;
     private int maxWords;
@@ -18,8 +14,8 @@ public class WCGmenu{
 
     //===== Setters/Getters[START] =====//
     
-        //Big-O running time: O(1)
-        //all Setter and Getter fucntions
+    //Big-O running time: O(1)
+    //all Setter and Getter fucntions
     public void setFileIn(String fileIn){
         this.fileIn = fileIn;
     }//setFileIn()
@@ -61,14 +57,14 @@ public class WCGmenu{
         //menu
         System.out.println("Command-Line-Menu");
         System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
-        this.setFileIn("DeBelloGallico.txt");
-        //this.setFileIn("https://www.independent.ie/news/");
+        //this.setFileIn("DeBelloGallico.txt");
+        this.setFileIn("https://www.independent.ie/news/");
         //this.setFileIn("WarAndPeace-LeoTolstoy.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("PoblachtNaHEireann.txt");
         //this.setFileIn("https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/");
         System.out.println("Enter MAXWORDS");
-        this.setMaxWords(20);
+        this.setMaxWords(200);
         System.out.println("Enter SAVEAS");
         this.setFileOut("WordCloudImg");
     }//displayMenu()

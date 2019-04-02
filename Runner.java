@@ -8,58 +8,77 @@ Class information:
 
 //ADD PACKAGE HERE
 
-import java.util.Map.Entry;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Queue;
 import java.util.PriorityQueue;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Runner{
     public static void main(String[] args){
         char menuSelection = ' ';
+        long startTime, endTime;
+        WCGmenu menu;
         Map<String, Integer> frequencyTable;
-        Queue<Word> words;
-        Queue<Word> words_cloud;
+        Queue<Word> words, words_cloud;
         Word tempWord;
         WordCloudCreator wcg;
-        WCGmenu menu;
 
         Scanner sc = new Scanner(System.in);
         
         //loop will continue until N/n entered
         do{
             menu = new WCGmenu();
-            menu.displayTestMenu();
-            //menu.displayMenu();
+            menu.displayMenu();
 
             frequencyTable = new HashMap<String, Integer>();
             words = new PriorityQueue<>(menu.getMaxWords(), new WordComparator());      //orders list
             words_cloud = new PriorityQueue<>(menu.getMaxWords(), new WordComparator());      
 
-            FileInfo file = new FileInfo(menu.getFileIn(), frequencyTable);
-            file.readFile();
+            try{
+                FileInfo file = new FileInfo(menu.getFileIn(), frequencyTable);
+                System.out.println("Reading file and creating HashMap...");
+                startTime = System.nanoTime();
+                file.readFile();
+                endTime = System.nanoTime();
+                System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
 
-                //Big-O running time: O(n2)
-                //Adds every element of HashMap to Queue and sorts it, I'm not sure how bad this is
-                //It would seem that the comparitor check is quick as it simply checks value,
-                //but correct placement on the Queue seems to imply O(n2)
-            for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
-                if (ft.getKey() == "")
-                    continue;
-                words.offer(new Word(ft.getKey(), ft.getValue()));
-                //all must be placed on queue to order the queue
+                //Big-O running time: nLog(n)
+                //Adds every element of HashMap to PriorityQueue and sorts it.
+                System.out.println("Creating PriorityQeueue...");
+                startTime = System.nanoTime();
+                for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
+                    if (ft.getKey() == "")
+                        continue;
+                    words.offer(new Word(ft.getKey(), ft.getValue()));
+                    //all must be placed on queue to order the queue
+                }
+
+                //second priorityQueue created from the highest value elements of first queue, based on word cloud size input
+                for(int i = 0; i <= menu.getMaxWords(); i++){
+                    tempWord = words.poll();
+                    words_cloud.offer(tempWord);
+                }
+                endTime = System.nanoTime();
+                System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
+
+                System.out.println("Creating WordCloud...");
+                startTime = System.nanoTime();
+                wcg = new WordCloudCreator(words_cloud);
+                WordCloudCreator.saveImg(menu.getFileOut());
+                endTime = System.nanoTime();
+                System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
+            }
+            catch (Exception ex){
+                //many exceptions can be thrown here because the parser is not throwing its error and the code which follows it does not do so conditionally based on its success
+                //but this will ensure the program will not crash if file is entered incorrectly
+                //will try to clean this up.
+                System.out.println("Exception thrown: " + ex.toString());
             }
 
-            for(int i = 0; i <= menu.getMaxWords(); i++){
-                tempWord = words.poll();
-                words_cloud.offer(tempWord);
-            }
-
-            wcg = new WordCloudCreator(words_cloud);
-            WordCloudCreator.saveImg(menu.getFileOut());
-            System.out.println("Image created.");
-            System.out.print("\nCreate a new word cloud?: Y/n ");
+            System.out.println("Create a new word cloud? ");
             menuSelection = sc.next().toUpperCase().charAt(0);
             System.out.println();
         }while((menuSelection != 'N'));

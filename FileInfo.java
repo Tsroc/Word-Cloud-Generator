@@ -6,8 +6,6 @@ Class information:
     the readFile() calls the Parser Class and assigns the words and frequency of these words to a map.
 */
 
-//ADD PACKAGE HERE
-
 import java.util.Map;
 
 public class FileInfo{
@@ -20,9 +18,10 @@ public class FileInfo{
     }//constructor
 
     //===== Setters/Getters[START] =====//
+    public void setFile(String file){
         //Big-O running time: O(1) as far as I am aware
         //there is no loops here, simply returning the variables.
-    public void setFile(String file){
+
         this.file = file;
     }//setFile()
 
@@ -30,9 +29,10 @@ public class FileInfo{
         return this.file;
     }//getFile()
     
+    public void setFrequencyTable(Map<String, Integer> map){
         //Big-O running time: O(1) I believe
         //This is shallow a shallow copy, each element is not copied individually
-    public void setFrequencyTable(Map<String, Integer> map){
+
         this.frequencyTable = map;
     }//setFrequencyTable()
 
@@ -45,9 +45,10 @@ public class FileInfo{
         This function reads for user input.
         It calls the determineFileInType() function and calls parseHtml() for webpage and parseFile() for file
     */
+    public void readFile(){
         //Big-O running time: O(1) 
         //There is nothing which impacts runtime. There is no loops and not much data being manipulated.
-    public void readFile(){
+
         Parser p;
         char fileInType = this.determineFileInType();
 
@@ -69,12 +70,15 @@ public class FileInfo{
     /*
         This function determines what type of input the user has entered.
         It is called as part of readFile()
+        Determines a website by being prefixed with http or www.
+        Determines a file by being postfixed with txt
     */
+    private char determineFileInType(){
         //Big-O running time: O(1), n being length of String this.file
         //this method id not quite O(n) as I have reduced the search to searching at max 8 characters total
-    private char determineFileInType(){
+
         String file = this.getFile().substring(3, this.getFile().length());
-        // logically decide how to determine better if is website or file.
+
         if ((this.getFile().substring(0, 4).equals("http")) || (this.getFile().substring(0, 3).equals("www.")))
             return 'w';
         if (this.getFile().substring(this.getFile().length() - 3, this.getFile().length()).equals("txt"))
