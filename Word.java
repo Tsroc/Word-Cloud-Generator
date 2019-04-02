@@ -11,8 +11,6 @@ Class information:
         as opposed to having 1 large word and the rest of the words all being the minimun size available.
 */
 
-//ADD PACKAGE HERE
-
 import java.awt.*;
 
 public class Word{

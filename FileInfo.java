@@ -22,8 +22,7 @@ public class FileInfo{
 
     //===== Setters/Getters[START] =====//
     public void setFile(String file){
-        //Big-O running time: O(1) as far as I am aware
-        //there is no loops here, simply returning the variables.
+        //Big-O running time: O(1) 
 
         this.file = file;
     }//setFile()
@@ -49,9 +48,7 @@ public class FileInfo{
         It calls the determineFileInType() function and calls parseHtml() for webpage and parseFile() for file
     */
     public void readFile() throws  FileNotFoundException, IOException, MalformedURLException{
-
         //Big-O running time: O(1) 
-        //There is nothing which impacts runtime. There is no loops and not much data being manipulated.
 
         Parser p;
         char fileInType = this.determineFileInType();
@@ -78,8 +75,8 @@ public class FileInfo{
         Determines a file by being postfixed with txt
     */
     private char determineFileInType(){
-        //Big-O running time: O(1), n being length of String this.file
-        //this method id not quite O(n) as I have reduced the search to searching at max 8 characters total
+        //Big-O running time: O(1)
+        //searching at max 8 characters total
 
         String file = this.getFile().substring(3, this.getFile().length());
 

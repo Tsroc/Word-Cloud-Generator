@@ -4,8 +4,6 @@ Class information:
     This class creates the list of ignore words. Values are assigned to a TreeSet, values are read from a file and set to upper case.
 */
 
-//ADD PACKAGE HERE
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -23,20 +21,19 @@ public final class IgnoreWords{
     }//constructor
 
     //===== Setters/Getters[START] =====//
-    //Big-O running time: O(1) as far as I am aware
-    //there is no loops here, simply returning the variables.
     public void setIgnoreFile(String file){
+        //Big-O running time: O(1) 
         this.ignoreFile = file;
     }//setIgnoreFile()
+
     public String getIgnoreFile(){
+        //Big-O running time: O(1) 
         return this.ignoreFile;   
     }//getIgnoreFile()
 
     public void setIgnoreWords(){
-        //Big-O running time: O(n) as far as I am aware
-        //The following is pretty horrible but I do not believe it can be improved much
-        //String line seems awful and should be replaced with StringBuffer for re-used memory space
-        //as for the file reading, it starts at the begining and moved to the end inspecting each character element along the way
+        //Big-O running time: O(n), n being the length of the file ignore words file.
+        //I do not believe it can be improved much, certain things must happen. Ignore file must be read by character.
 
         this.ignoreWords = new TreeSet<>();
         String line = null;
@@ -61,9 +58,8 @@ public final class IgnoreWords{
     }//getIgnoreList()
 
     public Set<String> getIgnoreWords(){
-        //Big-O running time: O(1) as far as I am aware
-        //Returns the object
-
+        //Big-O running time: O(1) 
+        
         return this.ignoreWords != null ? this.ignoreWords: null;
     }//getIgnoreWords()
     //===== Setters/Getters[END] =====//

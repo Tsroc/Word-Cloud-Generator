@@ -4,8 +4,6 @@
         Parser Interface
 */
 
-//ADD PACKAGE HERE
-
 import java.util.Map;
 import java.io.IOException;
 

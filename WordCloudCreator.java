@@ -4,8 +4,6 @@ Class information:
     This class generates the word cloud from the Word[] with methods from the ImgPlacement Class.
 */
 
-//ADD PACKAGE HERE
-
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
@@ -33,11 +31,14 @@ public class WordCloudCreator {
     private static Graphics graphics;
     
     public WordCloudCreator(Queue<Word> words){
-        //Big-O running time: O(n3)?
-        //When combined with the function setLocation() within, creates a horrible loop inside a horrible loop
-        //This loop creates the word cloud, it runs once per word and has an inner loop which runs checks for collision, it also has a do-while loop
-        //this loop has the same problems as I have with ImgPlacement class, the img placement algorithm is not efficient
-        //could ignore collision checks and place words randomly for Big-O: O(n)
+        //Big-O running time: O(1), excluding getLocation from ImgPlacement class.
+        //      including this method, I am unsure how to describe the Big-O run-time, O(n): n being the random number seed cycle I think.
+        //This class is using methods from other places, primarly ImgPlacement, which ahev been described in their respective classes
+        //There is one performance hit here which is the combination of getLocation from ImgPlacement class and CollisionCheck from Words class.
+        //This results in the random placement of images and a check to ensure they do not overlap. This loop ends when
+        //  a) the random location placement discovers a location which will not cause the image to overlap, or 
+        //  b) the random location placement makes too many incorrect guesses, which is 1100 incorrect guesses.
+        //This exit condition allows for the handling of too mnay Words also, as words which cannot be placed due to there being no available space are ignored.
 
         int arraySize = words.size();
         this.first = true;
@@ -107,6 +108,7 @@ public class WordCloudCreator {
     }//constructor
 
     private Point setLocation(Word w, Word w2){
+        //Big-O of following has been described within the used methods - class: ImgPlacement
         if (first){ 
             this.point = placement.getStartLocation(sizeX, sizeY, w);
             this.first = false;

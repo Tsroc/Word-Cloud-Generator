@@ -6,8 +6,6 @@ Class information:
     This array is then passed through the WordCloudCreator Class to create the word cloud.
 */
 
-//ADD PACKAGE HERE
-
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -49,7 +47,7 @@ public class Runner{
                 System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
 
                 //Big-O running time: nLog(n)
-                //Adds every element of HashMap to PriorityQueue and sorts it.
+                //Loop over the HashMap and log(n) to input into the PriorityQueue, this is done in log(n) time (same as tree)
                 System.out.println("Creating PriorityQeueue...");
                 startTime = System.nanoTime();
                 for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
@@ -60,6 +58,8 @@ public class Runner{
                 }
 
                 //second priorityQueue created from the highest value elements of first queue, based on word cloud size input
+                //Big-O running time: nLog(n)
+                //loops over first (WordCloud size) words and inputs to new PriorityQueue
                 for(int i = 0; i < menu.getMaxWords(); i++){
                     tempWord = words.poll();
                     words_cloud.offer(tempWord);
@@ -79,7 +79,7 @@ public class Runner{
             } catch (java.net.MalformedURLException e) {
                 System.out.printf("Malformed URL: %s%n", e.getMessage());
             } catch (IOException e) {
-                System.out.printf("I/O Error: %s%n", e.getMessage());
+                System.out.printf(e.getMessage());
             }
             catch (Exception ex){
                 //many exceptions can be thrown here because the parser is not throwing its error and the code which follows it does not do so conditionally based on its success

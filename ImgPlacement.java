@@ -1,11 +1,13 @@
-import java.awt.Point;
 
 /*
     Author: Eoin Wilkie
     Class information:
         Parser Interface
-        This class is used to determine the placement of the word images on the canvas.
+        This class is used to determine the placement of the word images on the word cloud canvas.
 */
+
+import java.awt.Point;
+
 public class ImgPlacement{
     /*
         Used to determine the mid point of the canvas, used for placement of the first word.
@@ -40,9 +42,10 @@ public class ImgPlacement{
         After this second area is filled words are placed anywhere on the remaining canvas.
     */
     public Point getLocation(int sizeX, int sizeY, Word w, Word w2, boolean firstFill, boolean secondFill){
-        //Big-O running time: O(n3)? Unsure how to lable this.
-        //Horrible code, currently it is placing images at random and not filterning previously selected random.
-        //There are some conditions set to ensure it is forced to close
+        //Big-O running time: O(n)?: n being random number seed cycle
+        //Unsure how to lable this, if we consider that rnd is not exactly random and the pattern will repeat itself
+        //my understanding is that random numbers will begin to be eliminated as the code progress. Still, it is horrible code.
+        //There are some conditions set to ensure it is forced to close if it takes too long to find a random location.
         //better implementation outside of the scope of this project
 
         int x, tempX;

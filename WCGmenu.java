@@ -5,8 +5,6 @@ Class information:
     A second menu is provided for test purposes.
 */
 
-//ADD PACKAGE HERE
-
 public class WCGmenu{
     private String fileIn;
     private int maxWords;
@@ -14,8 +12,7 @@ public class WCGmenu{
 
     //===== Setters/Getters[START] =====//
     
-    //Big-O running time: O(1)
-    //all Setter and Getter fucntions
+    //Big-O running time: O(1): all Setter and Getter fucntions
     public void setFileIn(String fileIn){
         this.fileIn = fileIn;
     }//setFileIn()
@@ -41,12 +38,12 @@ public class WCGmenu{
 
         //menu
         System.out.println("Command-Line-Menu");
-        System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
+        System.out.print("Enter filename or webpage: ");
         this.setFileIn(sc.nextLine());
-        System.out.println("Enter MAXWORDS");
+        System.out.print("Enter number of words in word cloud: ");
         this.setMaxWords(sc.nextInt());
         sc.nextLine();
-        System.out.println("Enter SAVEAS");
+        System.out.println("Save file as:(Do not include .png) ");
         this.setFileOut(sc.nextLine());
     }//displayMenu()
 
