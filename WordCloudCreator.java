@@ -90,6 +90,7 @@ public class WordCloudCreator {
                     this.firstFill = true;
                     fillCheck = 0;
                 }
+
                 wordsArray[i].startingPoint = setLocation(wordsArray[i], wordsArray[0]);
                 collision = false;
 

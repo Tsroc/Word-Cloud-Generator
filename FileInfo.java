@@ -82,8 +82,7 @@ public class FileInfo{
         //Big-O running time: O(1)
         //searching at max 8 characters total
 
-        String file = this.getFile().substring(3, this.getFile().length());
-
+        //System.out.println(this.getFile());
         if ((this.getFile().substring(0, 4).equals("http")) || (this.getFile().substring(0, 3).equals("www.")))
             return 'w';
         if (this.getFile().substring(this.getFile().length() - 3, this.getFile().length()).equals("txt"))

@@ -55,7 +55,7 @@ public class WCGmenu{
         System.out.print("Enter number of words in word cloud: ");
         this.setMaxWords(sc.nextInt());
         sc.nextLine();
-        System.out.println("Save file as:(Do not include .png) ");
+        System.out.print("Save file as:(Do not include .png) ");
         this.setFileOut(sc.nextLine());
     }//displayMenu()
 }

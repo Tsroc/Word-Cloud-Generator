@@ -119,10 +119,20 @@ public class Word{
     public void calculateValue(){
         //Big-O running time: O(1)
         //There are no loops, elements are being accessed at known locations.
-
+        //if (Word.getFactor() <= 0) Word.setFactor(1);
+        if (this.getCount() <= 5)   Word.setFactor(1);
         if (Word.getHighWordCount() == 0) setHighWordCount(this.count);
-        if (Word.getFactor() < 0) Word.setFactor(1);
-        this.setWeight((this.count / Word.getHighWordCount()) * (Word.getFactor() / 1));
+
+        float weight = this.getCount() / Word.getHighWordCount()* factor;
+
+        this.setWeight(weight);
+        if(weight < Word.getFactor() - 0.5){
+            if(Word.getFactor() > 1){
+                Word.setHighWordCount(this.getCount());
+                Word.setFactor(Word.getFactor() -1);
+                this.setWeight(factor);
+            }
+        }
     }//calculateValue();
 
     public Font getFont(){
