@@ -15,6 +15,7 @@ import java.util.Queue;
 import java.util.PriorityQueue;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException; 
 
 public class Runner{
     public static void main(String[] args){
@@ -37,11 +38,13 @@ public class Runner{
             words = new PriorityQueue<>(menu.getMaxWords(), new WordComparator());      //orders list
             words_cloud = new PriorityQueue<>(menu.getMaxWords(), new WordComparator());      
 
+            FileInfo file = new FileInfo(menu.getFileIn(), frequencyTable);
+            System.out.println("Reading file and creating HashMap...");
+            startTime = System.nanoTime();
+            
             try{
-                FileInfo file = new FileInfo(menu.getFileIn(), frequencyTable);
-                System.out.println("Reading file and creating HashMap...");
-                startTime = System.nanoTime();
                 file.readFile();
+                
                 endTime = System.nanoTime();
                 System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
 
@@ -70,15 +73,21 @@ public class Runner{
                 WordCloudCreator.saveImg(menu.getFileOut());
                 endTime = System.nanoTime();
                 System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
+
+            } catch (FileNotFoundException ex) {
+                System.out.printf("Unable to open file '%s'%n", menu.getFileIn());
+            } catch (java.net.MalformedURLException e) {
+                System.out.printf("Malformed URL: %s%n", e.getMessage());
+            } catch (IOException e) {
+                System.out.printf("I/O Error: %s%n", e.getMessage());
             }
             catch (Exception ex){
                 //many exceptions can be thrown here because the parser is not throwing its error and the code which follows it does not do so conditionally based on its success
                 //but this will ensure the program will not crash if file is entered incorrectly
-                //will try to clean this up.
                 System.out.println("Exception thrown: " + ex.toString());
             }
 
-            System.out.println("Create a new word cloud? ");
+            System.out.print("Create a new word cloud (Y/n): ");
             menuSelection = sc.next().toUpperCase().charAt(0);
             System.out.println();
         }while((menuSelection != 'N'));

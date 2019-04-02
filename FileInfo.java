@@ -7,6 +7,9 @@ Class information:
 */
 
 import java.util.Map;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException; 
 
 public class FileInfo{
     private String file;
@@ -45,7 +48,8 @@ public class FileInfo{
         This function reads for user input.
         It calls the determineFileInType() function and calls parseHtml() for webpage and parseFile() for file
     */
-    public void readFile(){
+    public void readFile() throws  FileNotFoundException, IOException, MalformedURLException{
+
         //Big-O running time: O(1) 
         //There is nothing which impacts runtime. There is no loops and not much data being manipulated.
 
