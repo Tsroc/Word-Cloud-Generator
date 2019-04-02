@@ -21,9 +21,12 @@ public class FileInfo{
     }//constructor
 
     //===== Setters/Getters[START] =====//
-    public void setFile(String file){
-        //Big-O running time: O(1) 
 
+        //All setter and getters
+        //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+        
+    public void setFile(String file){
         this.file = file;
     }//setFile()
 
@@ -49,6 +52,7 @@ public class FileInfo{
     */
     public void readFile() throws  FileNotFoundException, IOException, MalformedURLException{
         //Big-O running time: O(1) 
+        //There are no loops.
 
         Parser p;
         char fileInType = this.determineFileInType();

@@ -33,6 +33,7 @@ public class WordCloudCreator {
     public WordCloudCreator(Queue<Word> words){
         //Big-O running time: O(1), excluding getLocation from ImgPlacement class.
         //      including this method, I am unsure how to describe the Big-O run-time, O(n): n being the random number seed cycle I think.
+        //
         //This class is using methods from other places, primarly ImgPlacement, which ahev been described in their respective classes
         //There is one performance hit here which is the combination of getLocation from ImgPlacement class and CollisionCheck from Words class.
         //This results in the random placement of images and a check to ensure they do not overlap. This loop ends when
@@ -58,6 +59,7 @@ public class WordCloudCreator {
         Word.setFactor(5);
         Word.setHighWordCount(0);
 
+        //Big-O: O(n): to do this forloop, there are other run time hits within the loop.
         for (int i = 0; i < arraySize; i++){
             //add to array as polled from queue
             wordsArray[i] = words.poll();
@@ -109,6 +111,7 @@ public class WordCloudCreator {
 
     private Point setLocation(Word w, Word w2){
         //Big-O of following has been described within the used methods - class: ImgPlacement
+        
         if (first){ 
             this.point = placement.getStartLocation(sizeX, sizeY, w);
             this.first = false;
@@ -120,10 +123,16 @@ public class WordCloudCreator {
     }//setLocation()
 
     public static void dispose(){
+        //Big-O running time: O(1)
+        //There are no loops, elements are being accessed at known locations
+
    		graphics.dispose();     
     }//dispose()
 
     public static void saveImg(String saveAs){
+        //Big-O running time: O(1)
+        //There are no loops, elements are being accessed at known locations
+
         try {
             ImageIO.write(image, "png", new File(saveAs + ".png")); 
         } catch (IOException e) {

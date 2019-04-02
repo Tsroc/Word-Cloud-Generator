@@ -35,6 +35,11 @@ public class Word{
     }//constructor
 
     //===== Setters/Getters[START] =====//
+
+        //All setter and getters, if not otherwise stated:
+        //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+
     public void setWord(String word){
         this.word = word;
     }//setWord()
@@ -62,18 +67,27 @@ public class Word{
     public static void setFactor(int factor){
         Word.factor = factor;
     }
+
     public static int getFactor(){
         return Word.factor;
     }
+
     public static void setHighWordCount(int highCount){
         Word.highWordCount = highCount;
     } 
+
     public static int getHighWordCount(){
         return Word.highWordCount; 
     }
+
     //===== Setters/Getters[END] =====//
 
     //===== FontMetrics[START] =====//
+
+        //All FontMetrics methods, if not otherwise stated:
+        //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+
     public void setFontMetrics(FontMetrics fm){
         this.setImgWidth(fm.stringWidth(this.word));
         this.setImgHeight(fm.getMaxDescent()); 
@@ -94,6 +108,7 @@ public class Word{
     public int getImgHeight(){
         return this.fontHeight * 3;
     }//getImgHeight()
+
     //===== FontMetrics[END] =====/
 
     /*
@@ -102,6 +117,9 @@ public class Word{
         Unnecessary due to how they are created in this program.
     */
     public void calculateValue(){
+        //Big-O running time: O(1)
+        //There are no loops, elements are being accessed at known locations.
+
         if (Word.getHighWordCount() == 0) setHighWordCount(this.count);
         if (Word.getFactor() < 0) Word.setFactor(1);
         this.setWeight((this.count / Word.getHighWordCount()) * (Word.getFactor() / 1));
@@ -115,6 +133,9 @@ public class Word{
         Creates a Font for each word based on word.weight
     */
     public void createFont(){
+        //Big-O running time: O(1)
+        //There are no loops, elements are being accessed at known locations
+
         int weight = (int)Math.ceil(this.weight);
 
         switch (weight){
@@ -145,7 +166,7 @@ public class Word{
     */
     public boolean collisionCheck(Word w2){
         //Big-O running time: O(1)
-        //Checks the corners of the image
+        //Checks the corners of the image, max 4 checks, min 2 checks.
 
         final Point position = this.startingPoint;
         final Point position2 = w2.startingPoint;

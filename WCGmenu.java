@@ -12,28 +12,40 @@ public class WCGmenu{
 
     //===== Setters/Getters[START] =====//
     
-    //Big-O running time: O(1): all Setter and Getter fucntions
+        //All setter and getters
+        //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+
     public void setFileIn(String fileIn){
         this.fileIn = fileIn;
     }//setFileIn()
+
     public String getFileIn(){
         return this.fileIn;
     }//getFileIn()
+
     public void setMaxWords(int maxWords){
         this.maxWords = maxWords;
     }//setMaxWords()
+
     public int getMaxWords(){
         return this.maxWords;
     }//getMaxWords()
+
     public void setFileOut(String fileOut){
         this.fileOut = fileOut;
     }//getFileOut()
+
     public String getFileOut(){
         return this.fileOut;
     }//setFileOut()
+
     //===== Setters/Getters[END] =====//
 
     public void displayMenu(){
+        //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+
         java.util.Scanner sc = new java.util.Scanner(System.in);
 
         //menu
@@ -45,24 +57,5 @@ public class WCGmenu{
         sc.nextLine();
         System.out.println("Save file as:(Do not include .png) ");
         this.setFileOut(sc.nextLine());
-    }//displayMenu()
-
-    //TESTS
-    public void displayTestMenu(){
-        java.util.Scanner sc = new java.util.Scanner(System.in);
-
-        //menu
-        System.out.println("Command-Line-Menu");
-        System.out.println("Enter FILENAME\nexamples: (https://www.independent.ie/news/)(DeBelloGallico.txt)");
-        //this.setFileIn("DeBelloGallico.txt");
-        this.setFileIn("https://www.independent.ie/news/");
-        //this.setFileIn("WarAndPeace-LeoTolstoy.txt");
-        //this.setFileIn("PoblachtNaHEireann.txt");
-        //this.setFileIn("PoblachtNaHEireann.txt");
-        //this.setFileIn("https://www.thejournal.ie/two-arrested-finglas-drugs-samurai-swords-4524379-Mar2019/");
-        System.out.println("Enter MAXWORDS");
-        this.setMaxWords(200);
-        System.out.println("Enter SAVEAS");
-        this.setFileOut("WordCloudImg");
     }//displayMenu()
 }

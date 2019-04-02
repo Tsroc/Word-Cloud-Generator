@@ -47,7 +47,7 @@ public class Runner{
                 System.out.println("Time taken: " + (endTime - startTime)/1000000 + " milliseconds.");
 
                 //Big-O running time: nLog(n)
-                //Loop over the HashMap and log(n) to input into the PriorityQueue, this is done in log(n) time (same as tree)
+                //Loop over the HashMap and log(n) to input into the PriorityQueue, this is done in log(n) time, offer() into a priorityQueue is fast
                 System.out.println("Creating PriorityQeueue...");
                 startTime = System.nanoTime();
                 for (Map.Entry<String, Integer> ft: frequencyTable.entrySet()){
@@ -59,7 +59,7 @@ public class Runner{
 
                 //second priorityQueue created from the highest value elements of first queue, based on word cloud size input
                 //Big-O running time: nLog(n)
-                //loops over first (WordCloud size) words and inputs to new PriorityQueue
+                //loops over first (WordCloud size) words and inputs to new PriorityQueue, offer() into a priorityQueue is fast.
                 for(int i = 0; i < menu.getMaxWords(); i++){
                     tempWord = words.poll();
                     words_cloud.offer(tempWord);

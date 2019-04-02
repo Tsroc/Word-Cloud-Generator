@@ -21,13 +21,16 @@ public final class IgnoreWords{
     }//constructor
 
     //===== Setters/Getters[START] =====//
-    public void setIgnoreFile(String file){
+
+        //All setter and getters, if not otherwise stated:
         //Big-O running time: O(1) 
+        //There are no loops, elements are being accessed at known locations.
+
+    public void setIgnoreFile(String file){
         this.ignoreFile = file;
     }//setIgnoreFile()
 
     public String getIgnoreFile(){
-        //Big-O running time: O(1) 
         return this.ignoreFile;   
     }//getIgnoreFile()
 
@@ -59,7 +62,7 @@ public final class IgnoreWords{
 
     public Set<String> getIgnoreWords(){
         //Big-O running time: O(1) 
-        
+
         return this.ignoreWords != null ? this.ignoreWords: null;
     }//getIgnoreWords()
     //===== Setters/Getters[END] =====//
