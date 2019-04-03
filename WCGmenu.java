@@ -50,7 +50,7 @@ public class WCGmenu{
 
         //menu
         System.out.println("Command-Line-Menu");
-        System.out.print("Enter filename or webpage: ");
+        System.out.print("Enter filename or webpage:(Include .txt) ");
         this.setFileIn(sc.nextLine());
         System.out.print("Enter number of words in word cloud: ");
         this.setMaxWords(sc.nextInt());
